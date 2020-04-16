@@ -10,21 +10,14 @@
     <h1>MedRDV</h1>
     <h2 style="display: inline-block;">Les Rendez-vous d'aujourd'hui</h2>
     <button style="float: right;" id="ajouter-rdv-btn">
-      <img
-        src="../assets/icons/appointment.png"
-        alt="ajouter RDV"
-        width="40"
-        height="40"
-      />
+      ajouter RDV
     </button>
-    <script>
-      const { ipcRenderer } = require("electron");
-
-      document
-        .getElementById("ajouter-rdv-btn")
-        .addEventListener("click", () => {
-          ipcRenderer.send("ajouter-rdv");
-        });
-    </script>
+    <div>
+      <h1 style="display: inline-block;">Ajouter des Patients</h1>
+      <button id="createPatientBtn" type="button" class="btn">
+            Ajouter un patient
+          </button>
+    </div>
   </body>
+  <script src="./index.js"></script>
 </html>

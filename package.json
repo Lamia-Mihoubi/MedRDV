@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Lamia-Mihoubi/MedRDV#readme",
   "dependencies": {
-    "electron": "^8.2.2"
+    "electron": "^8.2.2",
+    "electron-store": "^5.1.1"
   }
 }
