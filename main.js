@@ -2,7 +2,7 @@
 const electron = require("electron");
 const path = require("path");
 const url = require("url");
-const Window = require('./Window')
+const Window = require('./Window');
 // SET ENV
 process.env.NODE_ENV = "development";
 
@@ -11,7 +11,7 @@ const { app, BrowserWindow, Menu, ipcMain } = electron;
 let mainWindow;
 let addRdvWindow;
 let addPatientWin;
-let addTodoWin
+let suppPatientWin;
 // Listen for app to be ready
 app.on("ready", function () {
   // Create new window
@@ -100,6 +100,22 @@ function createAddPatientWindow(){
     addPatientWindow = null;
   });
 }
+function createSuppPatientWindow(){
+  suppPatientWindow = new BrowserWindow({
+    width: 500,
+    height:350,
+    title:'Supprimer un patient'
+  });
+  suppPatientWindow.loadURL(url.format({
+    pathname: path.join(__dirname, "renderer", 'suppPatient.html'),
+    protocol: 'file:',
+    slashes:true
+  }));
+  // Handle garbage collection
+  suppPatientWindow.on('close', function(){
+    suppPatientWindow = null;
+  });
+}
 const mainMenuTemplate =  [
   // Each object is a dropdown
   {
@@ -125,6 +141,9 @@ const mainMenuTemplate =  [
       },
       {
         label:'Supprimer Patient',
+        click(){
+          createSuppPatientWindow();
+        }
       },
       {
         label: 'Afficher la liste des patients',
