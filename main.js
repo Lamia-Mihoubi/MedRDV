@@ -1,1 +1,53 @@
 // that's the entry point for our app
+const electron = require("electron");
+const path = require("path");
+const url = require("url");
+
+// SET ENV
+process.env.NODE_ENV = "development";
+
+const { app, BrowserWindow, Menu } = electron;
+
+let mainWindow;
+// Listen for app to be ready
+app.on("ready", function () {
+  // Create new window
+  mainWindow = new BrowserWindow({});
+  // Load html in window
+  mainWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "renderer", "index.html"),
+      protocol: "file:",
+      slashes: true,
+    })
+  );
+  // Quit app when closed
+  mainWindow.on("closed", function () {
+    app.quit();
+  });
+
+  // Build menu from template
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  // Insert menu
+  Menu.setApplicationMenu(mainMenu);
+});
+
+const mainMenuTemplate = [];
+// Add developer tools option if in dev
+if (process.env.NODE_ENV !== "production") {
+  mainMenuTemplate.push({
+    label: "Developer Tools",
+    submenu: [
+      {
+        role: "reload",
+      },
+      {
+        label: "Toggle DevTools",
+        accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        },
+      },
+    ],
+  });
+}
