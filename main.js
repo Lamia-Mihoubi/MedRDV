@@ -6,9 +6,10 @@ const url = require("url");
 // SET ENV
 process.env.NODE_ENV = "development";
 
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
+let addRdvWindow;
 // Listen for app to be ready
 app.on("ready", function () {
   // Create new window
@@ -32,6 +33,28 @@ app.on("ready", function () {
   Menu.setApplicationMenu(mainMenu);
 });
 
+// Handle add item window
+ipcMain.on("ajouter-rdv", () => {
+  addRdvWindow = new BrowserWindow({
+    width: 300,
+    height: 200,
+    title: "Ajouter RDV",
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+  addRdvWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "renderer", "addRDV.html"),
+      protocol: "file:",
+      slashes: true,
+    })
+  );
+  // Handle garbage collection
+  addRdvWindow.on("close", function () {
+    addRdvWindow = null;
+  });
+});
 const mainMenuTemplate = [];
 // Add developer tools option if in dev
 if (process.env.NODE_ENV !== "production") {

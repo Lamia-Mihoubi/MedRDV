@@ -6,5 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedRDV</title>
   </head>
-  <body></body>
+  <body>
+    <h1>MedRDV</h1>
+    <h2 style="display: inline-block;">Les Rendez-vous d'aujourd'hui</h2>
+    <button style="float: right;" id="ajouter-rdv-btn">
+      <img
+        src="../assets/icons/appointment.png"
+        alt="ajouter RDV"
+        width="40"
+        height="40"
+      />
+    </button>
+    <script>
+      const { ipcRenderer } = require("electron");
+
+      document
+        .getElementById("ajouter-rdv-btn")
+        .addEventListener("click", () => {
+          ipcRenderer.send("ajouter-rdv");
+        });
+    </script>
+  </body>
 </html>
