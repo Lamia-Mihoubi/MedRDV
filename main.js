@@ -3,6 +3,10 @@ const electron = require("electron");
 const path = require("path");
 const url = require("url");
 const Window = require('./Window');
+const DataStore = require('./DataStore')
+
+// create a new todo store name "Todos Main"
+const patientsData = new DataStore({ name: 'Patients Main' })
 // SET ENV
 process.env.NODE_ENV = "development";
 
@@ -116,6 +120,18 @@ function createSuppPatientWindow(){
     suppPatientWindow = null;
   });
 }
+
+
+// add-todo from add todo window
+ipcMain.on('item:add', function(event, patient) {
+  const updatedPatients = patientsData.addPatient(patient).patients
+
+  mainWindow.send('patients', updatedPatients)
+  //addPatientWindow.close();
+})
+
+
+
 const mainMenuTemplate =  [
   // Each object is a dropdown
   {

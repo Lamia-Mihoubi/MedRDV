@@ -7,34 +7,34 @@ class DataStore extends Store {
     super(settings)
 
     // initialize with todos or empty array
-    this.todos = this.get('todos') || []
+    this.patients = this.get('patients') || []
   }
 
-  saveTodos () {
+  savePatient () {
     // save todos to JSON file
-    this.set('todos', this.todos)
+    this.set('patients', this.patients)
 
     // returning 'this' allows method chaining
     return this
   }
 
-  getTodos () {
+  getPatient () {
     // set object's todos to todos in JSON file
-    this.todos = this.get('todos') || []
+    this.patients = this.get('patients') || []
 
     return this
   }
 
-  addTodo (todo) {
+  addPatient (patient) {
     // merge the existing todos with the new todo
-    this.todos = [ ...this.todos, todo ]
+    this.patients = [ ...this.patients, patient ]
 
-    return this.saveTodos()
+    return this.savePatient()
   }
 
-  deleteTodo (todo) {
+  deletePatient (patient) {
     // filter out the target todo
-    this.todos = this.todos.filter(t => t !== todo)
+    this.patients = this.patients.filter(t => t !== patient)
 
     return this.saveTodos()
   }
