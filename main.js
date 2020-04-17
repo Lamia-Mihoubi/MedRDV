@@ -151,6 +151,8 @@ function createAfficherPatientsWindow(){
   });
 }
 
+
+
 // add-todo from add todo window
 ipcMain.on('item:add', function(event, patient) {
   const updatedPatients = patientsData.addPatient(patient).patients
@@ -167,7 +169,7 @@ ipcMain.on('item:supp', function(event, patient) {
   
   //addPatientWindow.close();
 })
-  
+
 
 const mainMenuTemplate =  [
   // Each object is a dropdown
