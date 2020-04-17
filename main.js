@@ -13,7 +13,11 @@ let addRdvWindow;
 // Listen for app to be ready
 app.on("ready", function () {
   // Create new window
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
   // Load html in window
   mainWindow.loadURL(
     url.format({
@@ -36,8 +40,8 @@ app.on("ready", function () {
 // Handle add item window
 ipcMain.on("ajouter-rdv", () => {
   addRdvWindow = new BrowserWindow({
-    width: 300,
-    height: 200,
+    width: 600,
+    height: 600,
     title: "Ajouter RDV",
     webPreferences: {
       nodeIntegration: true,
