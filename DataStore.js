@@ -10,9 +10,9 @@ class DataStore extends Store {
     this.patients = this.get('patients') || []
   }
 
-  savePatient () {
+  savePatient (key) {
     // save todos to JSON file
-    this.set('patients', this.patients)
+    this.set(key.toString(), this.patients)
 
     // returning 'this' allows method chaining
     return this
@@ -26,17 +26,18 @@ class DataStore extends Store {
   }
 
   addPatient (patient) {
+    this.key=patient[2]
     // merge the existing todos with the new todo
-    this.patients = [ ...this.patients, patient ]
+    this.patients = patient
 
-    return this.savePatient()
+    return this.savePatient(this.key)
   }
 
-  deletePatient (patient) {
+  deletePatient (patient,store) {
     // filter out the target todo
-    this.patients = this.patients.filter(t => t !== patient)
-
-    return this.saveTodos()
+    //this.patients = this.patients.delete(patient)
+    store.delete(patient)
+    return this
   }
 }
 

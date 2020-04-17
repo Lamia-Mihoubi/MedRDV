@@ -16,6 +16,8 @@ let mainWindow;
 let addRdvWindow;
 let addPatientWin;
 let suppPatientWin;
+let affPatientsWindow;
+
 // Listen for app to be ready
 app.on("ready", function () {
   // Create new window
@@ -78,6 +80,9 @@ ipcMain.on('add-patient-window', () => {
       width: 500,
       height: 350,
       title:'Ajouter un patient',
+      webPreferences: {
+            nodeIntegration: true
+      },
       // close with the main window
       parent: mainWindow
     })
@@ -90,6 +95,9 @@ ipcMain.on('add-patient-window', () => {
 })
 function createAddPatientWindow(){
   addPatientWindow = new BrowserWindow({
+    webPreferences: {
+            nodeIntegration: true
+    },
     width: 500,
     height:350,
     title:'Ajouter un patient'
@@ -106,6 +114,9 @@ function createAddPatientWindow(){
 }
 function createSuppPatientWindow(){
   suppPatientWindow = new BrowserWindow({
+    webPreferences: {
+            nodeIntegration: true
+    },
     width: 500,
     height:350,
     title:'Supprimer un patient'
@@ -120,7 +131,25 @@ function createSuppPatientWindow(){
     suppPatientWindow = null;
   });
 }
-
+function createAfficherPatientsWindow(){
+  affPatientsWindow = new BrowserWindow({
+    webPreferences: {
+            nodeIntegration: true
+    },
+    width: 500,
+    height:350,
+    title:'Afficher tous les patients'
+  });
+  affPatientsWindow.loadURL(url.format({
+    pathname: path.join(__dirname, "renderer", 'affPatients.html'),
+    protocol: 'file:',
+    slashes:true
+  }));
+  // Handle garbage collection
+  affPatientsWindow.on('close', function(){
+    affPatientsWindow = null;
+  });
+}
 
 // add-todo from add todo window
 ipcMain.on('item:add', function(event, patient) {
@@ -130,7 +159,15 @@ ipcMain.on('item:add', function(event, patient) {
   //addPatientWindow.close();
 })
 
+// delete-patient from todo list window
+ipcMain.on('item:supp', function(event, patient) {
+  const pat=patient.toString()
+  const updatedPatients = patientsData.deletePatient(pat,patientsData).patients
 
+  
+  //addPatientWindow.close();
+})
+  
 
 const mainMenuTemplate =  [
   // Each object is a dropdown
@@ -163,6 +200,9 @@ const mainMenuTemplate =  [
       },
       {
         label: 'Afficher la liste des patients',
+        click(){
+          createAfficherPatientsWindow();
+        }
       }
     ]
   }
