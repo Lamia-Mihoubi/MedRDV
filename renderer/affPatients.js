@@ -8,26 +8,20 @@ let affPatientsWindow;
 console.log("holaaaaaaaa");
 const patientItems = patientsData.getPatient();
 const tt=JSON.stringify(patientItems.get())
+
 const pat =patientItems.get()
-console.log(tt);
 const item=['hello','good'];
 ul.className = 'collection';
-const li = document.createElement('li');
-li.className = 'collection-item';
-const itemText = document.createTextNode(item);
 
-li.appendChild(itemText);
-ul.appendChild(li);
+for (let key in pat){
+  const li = document.createElement('li');
+  li.className = 'collection-item';
+  li.appendChild(document.createTextNode(key+"\n"+String(patientItems.get(key))));
+  ul.appendChild(li);
+  
+}
+
+//const itemText = document.createTextNode(JSON.stringify(pat[0]));
 
 
-const patientsList = document.getElementById('patientsList');
 
-  // create html string
-  const patientsItems = pat.reduce((html, patient) => {
-    html += `<li class="patient-item">${patient}</li>`
-
-    return html
-  }, '');
-
-  // set list html to the todo items
-  patientsList.innerHTML = patientsItems
