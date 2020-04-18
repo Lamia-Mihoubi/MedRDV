@@ -3,6 +3,7 @@
 // const { ipcRenderer } = electron;
 const rdvManager = require("./rdvManager");
 // todo take care of the values of path and filename
+// check Node.js required modules are singletons or not
 rdvMngr = new rdvManager(path, filename);
 document.querySelector("form").addEventListener("submit", submitForm);
 
