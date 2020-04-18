@@ -2,15 +2,14 @@ const electron = require("electron");
 const { ipcRenderer } = electron;
 const ul = document.querySelector("ul");
 const DataStore = require("../DataStore");
-// Catch item:aff
-const patientsData = new DataStore({ name: "Patients Main" });
-let affPatientsWindow;
-console.log("holaaaaaaaa");
-const patientItems = patientsData.getPatient();
-const tt = JSON.stringify(patientItems.get());
 
+
+const patientsData = new DataStore({ name: "Patients Main" });
+
+
+let affPatientsWindow;
+const patientItems = patientsData.getPatient();
 const pat = patientItems.get();
-const item = ["hello", "good"];
 ul.className = "collection";
 
 for (let key in pat) {
@@ -22,4 +21,6 @@ for (let key in pat) {
   ul.appendChild(li);
 }
 
-//const itemText = document.createTextNode(JSON.stringify(pat[0]));
+document.getElementById('btn-fermer').addEventListener('click', () => {
+  ipcRenderer.send('btn:fermer')
+})

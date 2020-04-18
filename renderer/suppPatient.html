@@ -11,29 +11,12 @@
         <form>
             <h1>Les informations du Patient à supprimer</h1>
             <fieldset>
-                <label>Nom du Patient</label>
-                <input type="text" id="nom-patient" autofocus>
-                <br>
-                <label>Prénom du Patient</label>
-                <input type="text" id="prenom-patient" autofocus>
-                <br>
                 <label>Numero de Telephone</label>
-                <input type="tel" id="num-tel" autofocus>
+                <input type="tel" id="num-tel" autofocus><button type="button" id="btn-search">Rechercher Patient</button>
                 <br>
-                <label>Date de Naissance</label>
-                <input type="date" id="date-naiss" autofocus>
-                <br>
-                <label>Adresse</label>
-                <input type="text" id="adresse" autofocus>
-                <br>
-                <label>Mail</label>
-                <input type="mail" id="mail" autofocus>
-                <br>
-                <label>Informations Médicales</label>
-                <input type="text" id="info_med" autofocus>
-                <br>
+                <ul id="patientList"></ul>
             </fieldset>
-            <button type="submit">Supprimer Patient</button>
+            <button type="submit" id="btn-submit">Supprimer Patient</button>
         </form>
         <script src="./suppPatient.js"></script>
   </body>
