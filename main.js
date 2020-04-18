@@ -28,6 +28,7 @@ app.on("ready", function () {
   );
   // Quit app when closed
   mainWindow.on("closed", function () {
+    // save the list of rdv before closing, I donno how to do that but maybe it should send a msg another process of something..
     app.quit();
   });
 
