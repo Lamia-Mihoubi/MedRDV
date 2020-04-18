@@ -2,6 +2,7 @@
 const electron = require("electron");
 const path = require("path");
 const fs = require("fs");
+const RDV = require("./RDV");
 
 class Store {
   constructor(opts) {
@@ -11,10 +12,6 @@ class Store {
     );
     this.path = path.join(userDataPath, opts.configName + ".json");
     this.defaults = opts.defaults;
-  }
-
-  get(key) {
-    return this.data[key];
   }
 
   set(key, val, data) {
@@ -34,28 +31,14 @@ class Store {
   }
 }
 
-class RDV {
-  constructor(patienName, patientTelNum, dateTime, object) {
-    this.patienName = patienName;
-    this.patientTelNum = patientTelNum;
-    this.dateTime = dateTime;
-    this.object = object;
-  }
-
-  editRDV(newDateTime) {
-    this.dateTime = newDateTime;
-  }
-}
-
 persistence = new Store({ configName: "rdvList", defaults: [] });
 
 class RDVManager {
-  initRdvList() {
-    this.rdvList = persistence.loadData();
+  constructor() {
+    this.rdvList = persistence.loadData() || [];
   }
 
-  createRDV(patienName, patientTelNum, dateTime, object) {
-    const rdv = new RDV(patienName, patientTelNum, dateTime, object);
+  addRDV(rdv) {
     this.rdvList.push(rdv);
   }
 

@@ -1,12 +1,11 @@
 // this is the javascript for the addRDV windows
-// const electron = require("electron");
-// const { ipcRenderer } = electron;
-const rdvM = require("./RDVManager");
-rdvManager = new rdvM();
+const electron = require("electron");
+const { ipcRenderer } = electron;
+const RDV = require("./RDV");
 // todo take care of the values of path and filename
 // check Node.js required modules are singletons or not
-rdvManager.initRdvList();
-document.querySelector("form").addEventListener("submit", submitForm);
+let form = document.querySelector("form");
+form.addEventListener("submit", submitForm);
 
 function submitForm(e) {
   e.preventDefault();
@@ -14,8 +13,8 @@ function submitForm(e) {
   const patientTelNum = document.querySelector("#num-tel").value;
   const dateTime = document.querySelector("#date-heure-rdv").value;
   const object = document.querySelector("#obj").value;
-  rdvManager.createRDV(patientName, patientTelNum, dateTime, object);
-  console.log(rdvManager.rdvList);
-  //console.log(ipcRenderer);
-  //ipcRenderer.send("item:add", item);
+  const rdv = new RDV(patientName, patientTelNum, dateTime, object);
+  form.reset();
+  console.log(rdv);
+  ipcRenderer.send("rdv:add", rdv);
 }

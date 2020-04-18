@@ -2,7 +2,8 @@
 const electron = require("electron");
 const path = require("path");
 const url = require("url");
-
+const rdvM = require("./renderer/RDVManager");
+let rdvManager = new rdvM();
 // SET ENV
 process.env.NODE_ENV = "development";
 
@@ -28,7 +29,7 @@ app.on("ready", function () {
   );
   // Quit app when closed
   mainWindow.on("closed", function () {
-    // save the list of rdv before closing, I donno how to do that but maybe it should send a msg another process of something..
+    rdvManager.storeRdvList();
     app.quit();
   });
 
@@ -59,6 +60,11 @@ ipcMain.on("ajouter-rdv", () => {
   addRdvWindow.on("close", function () {
     addRdvWindow = null;
   });
+});
+
+ipcMain.on("rdv:add", function (event, rdv) {
+  rdvManager.addRDV(rdv);
+  console.log(rdvManager.rdvList);
 });
 const mainMenuTemplate = [];
 // Add developer tools option if in dev
