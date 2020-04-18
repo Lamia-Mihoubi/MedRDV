@@ -66,6 +66,7 @@ ipcMain.on("rdv:add", function (event, rdv) {
   rdvManager.addRDV(rdv);
   console.log(rdvManager.rdvList);
 });
+
 const mainMenuTemplate = [];
 // Add developer tools option if in dev
 if (process.env.NODE_ENV !== "production") {
