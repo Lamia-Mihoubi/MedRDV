@@ -1,3 +1,4 @@
+// that's the script for the data storage in a local file
 'use strict'
 
 const Store = require('electron-store')
@@ -7,36 +8,34 @@ class DataStore extends Store {
     super(settings)
 
     // initialize with todos or empty array
-    this.patients = this.get() || []
+    this.rdvs = this.get() || []
   }
-
-  savePatient (key) {
+  saveRDV (key) {
     // save todos to JSON file
-    this.set(key.toString(), this.patients)
+    this.set(key.toString(), this.rdvs)
 
     // returning 'this' allows method chaining
     return this
   }
 
-  getPatient () {
+  getRDV () {
     // set object's todos to todos in JSON file
-    this.patients = this.get() || []
+    this.rdvs = this.get() || []
 
     return this
   }
 
-  addPatient (patient) {
-    this.key=patient[2]
+  addRDV (key,rdv) {
     // merge the existing todos with the new todo
-    this.patients = patient
+    this.rdvs = rdv
 
-    return this.savePatient(this.key)
+    return this.savePatient(key)
   }
 
-  deletePatient (patient,store) {
+  deleteRDV (rdv,store) {
     // filter out the target todo
     //this.patients = this.patients.delete(patient)
-    store.delete(patient)
+    store.delete(rdv)
     return this
   }
 }

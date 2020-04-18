@@ -5,7 +5,7 @@ const url = require("url");
 const Window = require('./Window');
 const DataStore = require('./DataStore')
 
-// create a new todo store name "Todos Main"
+// create a new patients store name "Patients Main"
 const patientsData = new DataStore({ name: 'Patients Main' })
 // SET ENV
 process.env.NODE_ENV = "development";
@@ -70,7 +70,7 @@ ipcMain.on("ajouter-rdv", () => {
 });
 
 
-
+//Create the add patient window from clicking on the button ajouter patient
 ipcMain.on('add-patient-window', () => {
   // if addTodoWin does not already exist
   if (!addPatientWin) {
@@ -93,27 +93,36 @@ ipcMain.on('add-patient-window', () => {
     })
   }
 })
+//Create the add patient window
 function createAddPatientWindow(){
-  addPatientWindow = new BrowserWindow({
+  if(!addPatientWin){
+    addPatientWin = new BrowserWindow({
     webPreferences: {
             nodeIntegration: true
     },
     width: 500,
     height:350,
     title:'Ajouter un patient'
-  });
-  addPatientWindow.loadURL(url.format({
-    pathname: path.join(__dirname, "renderer", 'addPatient.html'),
-    protocol: 'file:',
-    slashes:true
-  }));
-  // Handle garbage collection
-  addPatientWindow.on('close', function(){
-    addPatientWindow = null;
-  });
+    });
+    addPatientWin.loadURL(url.format({
+      pathname: path.join(__dirname, "renderer", 'addPatient.html'),
+      protocol: 'file:',
+      slashes:true
+    }));
+    // Handle garbage collection
+    addPatientWin.on('close', function(){
+      addPatientWin = null;
+    });
+  }
+  else{
+    addPatientWin.show()
+  }
+  
 }
+//Create the supp patient window
 function createSuppPatientWindow(){
-  suppPatientWindow = new BrowserWindow({
+  if(!suppPatientWin){
+    suppPatientWin = new BrowserWindow({
     webPreferences: {
             nodeIntegration: true
     },
@@ -121,18 +130,25 @@ function createSuppPatientWindow(){
     height:350,
     title:'Supprimer un patient'
   });
-  suppPatientWindow.loadURL(url.format({
+  suppPatientWin.loadURL(url.format({
     pathname: path.join(__dirname, "renderer", 'suppPatient.html'),
     protocol: 'file:',
     slashes:true
   }));
   // Handle garbage collection
-  suppPatientWindow.on('close', function(){
-    suppPatientWindow = null;
+  suppPatientWin.on('close', function(){
+    suppPatientWin = null;
   });
+  }
+  else{
+    suppPatientWin.show()
+  }
+  
 }
+//Create the aff patient window
 function createAfficherPatientsWindow(){
-  affPatientsWindow = new BrowserWindow({
+  if (!affPatientsWindow){
+    affPatientsWindow = new BrowserWindow({
     webPreferences: {
             nodeIntegration: true
     },
@@ -149,28 +165,40 @@ function createAfficherPatientsWindow(){
   affPatientsWindow.on('close', function(){
     affPatientsWindow = null;
   });
+  } 
+  else{
+    affPatientsWindow.show()
+  }
 }
 
 
 
-// add-todo from add todo window
+// add-patient from add patient window
 ipcMain.on('item:add', function(event, patient) {
-  const updatedPatients = patientsData.addPatient(patient).patients
-
-  mainWindow.send('patients', updatedPatients)
-  //addPatientWindow.close();
+  const updatedPatients = patientsData.addPatient(patient)
+  mainWindow.send('patients', updatedPatients);
+  if (affPatientsWindow){
+      affPatientsWindow.reload();
+  }
+  addPatientWin.close();
 })
 
-// delete-patient from todo list window
+// delete-patient from delete patient window
 ipcMain.on('item:supp', function(event, patient) {
   const pat=patient.toString()
-  const updatedPatients = patientsData.deletePatient(pat,patientsData).patients
-
-  
-  //addPatientWindow.close();
+  const updatedPatients = patientsData.deletePatient(pat,patientsData)
+  if (affPatientsWindow){
+      affPatientsWindow.reload();
+  }
+  suppPatientWin.close();
+})
+//close the affPatientsWindow
+ipcMain.on('btn:fermer',()=>{
+  affPatientsWindow.close()
 })
 
 
+//create the mainMenuTemplate
 const mainMenuTemplate =  [
   // Each object is a dropdown
   {
