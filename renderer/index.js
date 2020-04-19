@@ -26,7 +26,7 @@ function displayRDV(rdv) {
     "Novembre",
     "Décembre",
   ];
-  let rdvsBody = document.querySelector(".rdvs-body");
+  let rdvsBody = document.querySelector(".card-columns");
   let card = document.createElement("div");
   card.className = "card";
   card.style.width = "18rem";
@@ -36,7 +36,7 @@ function displayRDV(rdv) {
   cardTitle.className = "card-title";
   cardTitle.appendChild(document.createTextNode("Rendez-vous"));
   cardBody1.appendChild(cardTitle);
-  let cardSubtitle = document.createElement("h6");
+  let cardSubtitle = document.createElement("h7");
   cardSubtitle.className = "card-subtitle mb-2 text-muted";
   let year = rdv.dateTime.slice(0, 4);
   let month = months[parseInt(rdv.dateTime.slice(5, 7))];
@@ -50,18 +50,18 @@ function displayRDV(rdv) {
   cardBody1.appendChild(cardSubtitle);
   card.appendChild(cardBody1);
   let cardList = document.createElement("ul");
-  cardList.className = "list-group list-group-flush";
-  let patientName = document.createElement("h6");
+  cardList.className = "list";
+  let patientName = document.createElement("h7");
   patientName.className = "card-subtitle mb-2 text-muted";
   patientName.appendChild(document.createTextNode("Nom du patient:"));
   let name = document.createElement("p");
   name.appendChild(document.createTextNode(rdv.patienName));
   let il1 = document.createElement("il");
-  il1.className = "list-group-item";
+  il1.className = "list-item";
   il1.appendChild(patientName);
   il1.appendChild(name);
   cardList.appendChild(il1);
-  let patientTelNum = document.createElement("h6");
+  let patientTelNum = document.createElement("h7");
   patientTelNum.className = "card-subtitle mb-2 text-muted";
   patientTelNum.appendChild(
     document.createTextNode("Numéro de téléphone du patient")
@@ -69,17 +69,17 @@ function displayRDV(rdv) {
   let telNum = document.createElement("p");
   telNum.appendChild(document.createTextNode(rdv.patientTelNum));
   let il2 = document.createElement("il");
-  il2.className = "list-group-item";
+  il2.className = "list-item";
   il2.appendChild(patientTelNum);
   il2.appendChild(telNum);
   cardList.appendChild(il2);
-  let object = document.createElement("h6");
+  let object = document.createElement("h7");
   object.className = "card-subtitle mb-2 text-muted";
   object.appendChild(document.createTextNode("Objet: "));
   let obj = document.createElement("p");
   obj.appendChild(document.createTextNode(rdv.object));
   let il3 = document.createElement("il");
-  il3.className = "list-group-item";
+  il3.className = "list-item";
   il3.appendChild(object);
   il3.appendChild(obj);
   cardList.appendChild(il3);
@@ -88,16 +88,19 @@ function displayRDV(rdv) {
   cardBody2.className = "card-body";
   let cardEdit = document.createElement("a");
   cardEdit.href = "#";
+  cardEdit.style.margin = "0.5px";
   cardEdit.className = "btn btn-success btn-primary btn-sm";
   cardEdit.appendChild(document.createTextNode(" Modifier "));
   cardBody2.appendChild(cardEdit);
   let cardDel = document.createElement("a");
   cardDel.href = "#";
+  cardDel.style.margin = "0.5px";
   cardDel.className = "btn btn-danger btn-primary btn-sm";
   cardDel.appendChild(document.createTextNode(" Supprimer "));
   cardBody2.appendChild(cardDel);
   let cardPrint = document.createElement("a");
   cardPrint.href = "#";
+  cardPrint.style.margin = "0.5px";
   cardPrint.className = "btn btn-primary btn-sm";
   cardPrint.appendChild(document.createTextNode(" Imprimer "));
   cardBody2.appendChild(cardPrint);
