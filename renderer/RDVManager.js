@@ -33,21 +33,24 @@ class Store {
 persistence = new Store({ configName: "rdvList", defaults: [] });
 
 class RDVManager {
-  constructor() {
+  static rdvList = [];
+  constructor() {}
+
+  static initRdvList() {
     this.rdvList = persistence.loadData() || [];
   }
 
-  addRDV(rdv) {
+  static addRDV(rdv) {
     this.rdvList.push(rdv);
   }
 
-  deleteRDV(dateTime) {
+  static deleteRDV(dateTime) {
     this.rdvList = this.rdvList.filter((rdv) => {
       return rdv.dateTime != dateTime;
     });
   }
 
-  editRDV(dateTime, newDateTime) {
+  static editRDV(dateTime, newDateTime) {
     rdv = this.rdvList.find((rdv) => rdv.dateTime == dateTime);
     if (rdv != undefined) {
       rdv.dateTime = newDateTime;
@@ -58,7 +61,7 @@ class RDVManager {
 
   printRDV(dateTime) {}
 
-  storeRdvList() {
+  static storeRdvList() {
     persistence.store(this.rdvList);
   }
 }
