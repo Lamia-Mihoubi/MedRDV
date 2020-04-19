@@ -1,0 +1,23 @@
+<!--this is the html of the window that shows when we click the add RDV button-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedRDV</title>
+  </head>
+  <body>
+    <div class="container">
+        <form>
+            <h1>Les informations du Patient à supprimer</h1>
+            <fieldset>
+                <label>Numero de Telephone</label>
+                <input type="tel" id="num-tel" autofocus><button type="button" id="btn-search">Rechercher Patient</button>
+                <br>
+                <ul id="patientList"></ul>
+            </fieldset>
+            <button type="submit" id="btn-submit">Supprimer Patient</button>
+        </form>
+        <script src="./suppPatient.js"></script>
+  </body>
+</html>

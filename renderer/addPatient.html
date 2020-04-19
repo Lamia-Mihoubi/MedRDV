@@ -9,10 +9,13 @@
   <body>
     <div class="container">
         <form>
-            <h1>Les Informations du Patient</h1>
+            <h1>Les informations du Patient</h1>
             <fieldset>
-                <label>Nom Complet du Patient</label>
+                <label>Nom du Patient</label>
                 <input type="text" id="nom-patient" autofocus>
+                <br>
+                <label>Prénom du Patient</label>
+                <input type="text" id="prenom-patient" autofocus>
                 <br>
                 <label>Numero de Telephone</label>
                 <input type="tel" id="num-tel" autofocus>
@@ -23,23 +26,15 @@
                 <label>Adresse</label>
                 <input type="text" id="adresse" autofocus>
                 <br>
-                <label>Email</label>
+                <label>Mail</label>
                 <input type="mail" id="mail" autofocus>
                 <br>
                 <label>Informations Médicales</label>
                 <input type="text" id="info-med" autofocus>
-            </fieldset>
-            <h1>Les Informations du Rendez-vous</h1>
-            <fieldset>
-                <label>Date et Heure du Rendez-vous</label>
-                <input type="datetime-local" id="date-heure-rdv" name="date-heure-rdv" autofocus>
-                <br>
-                <label>Objet</label>
-                <input type="text" id="obj" autofocus>
                 <br>
             </fieldset>
-            <button type="submit">Ajouter Rendez-vous</button>
+            <button type="submit">Ajouter Patient</button>
         </form>
-        <script src="./addRDV.js"></script>
+        <script src="./addPatient.js"></script>
   </body>
 </html>
