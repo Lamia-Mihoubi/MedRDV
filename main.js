@@ -7,8 +7,7 @@ const DataStore = require("./DataStore");
 
 // create a new patients store name "Patients Main"
 const patientsData = new DataStore({ name: "Patients Main" });
-const rdvM = require("./renderer/RDVManager");
-let rdvManager = new rdvM();
+const RDVManager = require("./renderer/RDVManager");
 // SET ENV
 process.env.NODE_ENV = "development";
 
@@ -38,7 +37,7 @@ app.on("ready", function () {
   );
   // Quit app when closed
   mainWindow.on("closed", function () {
-    rdvManager.storeRdvList();
+    RDVManager.storeRdvList();
     app.quit();
   });
 
@@ -237,7 +236,7 @@ const mainMenuTemplate = [
   },
 ];
 ipcMain.on("rdv:add", function (event, rdv) {
-  rdvManager.addRDV(rdv);
+  RDVManager.addRDV(rdv);
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, "0");
   let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -250,7 +249,7 @@ ipcMain.on("rdv:add", function (event, rdv) {
     mainWindow.webContents.send("rdv:add", rdv);
     console.log("rdv today3");
   }
-  console.log(rdvManager.rdvList);
+  console.log(RDVManager.rdvList);
 });
 
 // Add developer tools option if in dev
