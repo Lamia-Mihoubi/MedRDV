@@ -176,7 +176,6 @@ function createAfficherPatientsWindow() {
 // add-patient from add patient window
 ipcMain.on("item:add", function (event, patient) {
   const updatedPatients = patientsData.addPatient(patient);
-  mainWindow.send("patients", updatedPatients);
   if (affPatientsWindow) {
     affPatientsWindow.reload();
   }

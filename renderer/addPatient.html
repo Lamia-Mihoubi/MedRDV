@@ -17,8 +17,8 @@
                 <label>Prénom du Patient</label>
                 <input type="text" id="prenom-patient" autofocus>
                 <br>
-                <label>Numero de Telephone</label>
-                <input type="tel" id="num-tel" autofocus>
+                <label>Numero de Telephone (sans le 0)</label>
+                <input type="number" id="num-tel" autofocus>
                 <br>
                 <label>Date de Naissance</label>
                 <input type="date" id="date-naiss" autofocus>
@@ -27,13 +27,17 @@
                 <input type="text" id="adresse" autofocus>
                 <br>
                 <label>Mail</label>
-                <input type="mail" id="mail" autofocus>
+                <input type="email" id="mail" autofocus>
                 <br>
                 <label>Informations Médicales</label>
                 <input type="text" id="info-med" autofocus>
                 <br>
+                <button type="button" id="btn-check">Vérifier</button>
+                <br>
+                <output id=output1></output> 
             </fieldset>
-            <button type="submit">Ajouter Patient</button>
+
+            <button type="submit" id="btn-submit1">Ajouter Patient</button>
         </form>
         <script src="./addPatient.js"></script>
   </body>
