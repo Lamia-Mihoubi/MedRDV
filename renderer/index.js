@@ -52,7 +52,7 @@ function displayRDV(rdv) {
   patientName.className = "card-subtitle mb-2 text-muted";
   patientName.appendChild(document.createTextNode("Nom du patient:"));
   let name = document.createElement("p");
-  name.appendChild(document.createTextNode(rdv.patientName));
+  name.appendChild(document.createTextNode(rdv.patienName));
   let il1 = document.createElement("il");
   il1.className = "list-group-item";
   il1.appendChild(patientName);
