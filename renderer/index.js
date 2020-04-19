@@ -36,7 +36,7 @@ function displayRDV(rdv) {
   cardTitle.className = "card-title";
   cardTitle.appendChild(document.createTextNode("Rendez-vous"));
   cardBody1.appendChild(cardTitle);
-  let cardSubtitle = document.createElement("h6");
+  let cardSubtitle = document.createElement("h7");
   cardSubtitle.className = "card-subtitle mb-2 text-muted";
   let year = rdv.dateTime.slice(0, 4);
   let month = months[parseInt(rdv.dateTime.slice(5, 7))];

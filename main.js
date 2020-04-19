@@ -8,6 +8,7 @@ const DataStore = require("./DataStore");
 // create a new patients store name "Patients Main"
 const patientsData = new DataStore({ name: "Patients Main" });
 const RDVManager = require("./renderer/RDVManager");
+let rdvM = new RDVManager();
 // SET ENV
 process.env.NODE_ENV = "development";
 
@@ -23,7 +24,7 @@ let affPatientsWindow;
 app.on("ready", function () {
   // Create new window
   mainWindow = new BrowserWindow({
-    width: 950,
+    width: 980,
     height: 800,
     webPreferences: {
       nodeIntegration: true,
@@ -39,7 +40,7 @@ app.on("ready", function () {
   );
   // Quit app when closed
   mainWindow.on("closed", function () {
-    RDVManager.storeRdvList();
+    rdvM.storeRdvList();
     app.quit();
   });
 
