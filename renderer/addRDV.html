@@ -7,27 +7,49 @@
     <title>MedRDV</title>
   </head>
   <body>
-    <div class="container">
+    <div>
         <form>
             <h1>Les Informations du Patient</h1>
             <fieldset>
-                <label>Nom Complet du Patient</label>
-                <input type="text" id="nom-patient" autofocus>
-                <br>
-                <label>Numero de Telephone</label>
-                <input type="tel" id="num-tel" autofocus>
-                <br>
-                <label>Date de Naissance</label>
-                <input type="date" id="date-naiss" autofocus>
-                <br>
-                <label>Adresse</label>
-                <input type="text" id="adresse" autofocus>
-                <br>
-                <label>Email</label>
-                <input type="mail" id="mail" autofocus>
-                <br>
-                <label>Informations Médicales</label>
-                <input type="text" id="info-med" autofocus>
+                <button type="button" id="nouv-btn">Nouveau Patient</button><button type="button" id="an-btn">Ancien Patient</button>
+            </fieldset>
+            <fieldset >
+                <fieldset >
+                    <label id="l1">Nom du Patient</label>
+                    <input type="text" id="nom-patient" autofocus>
+                    <br>
+                    <label id="l7">Prénom du Patient</label>
+                    <input type="text" id="prenom-patient" autofocus>
+                    <br>
+                    <label id="l2">Numero de Telephone</label>
+                    <input type="number" id="num-tel" autofocus>
+                    <br>
+                    <label id="l3">Date de Naissance</label>
+                    <input type="date" id="date-naiss" autofocus>
+                    <br>
+                    <label id="l4">Adresse</label>
+                    <input type="text" id="adresse" autofocus>
+                    <br>
+                    <label id="l5">Email</label>
+                    <input type="email" id="mail" autofocus>
+                    <br>
+                    <label id="l6">Informations Médicales</label>
+                    <input type="text" id="info-med" autofocus>
+                    <br>
+                    <button type="button" id="btn-check">Vérifier</button>
+                    <br>
+                    <output id=output1></output> 
+                </fieldset>
+            </fieldset >
+            <form id="f2s">
+                <fieldset >
+                    <label id="l10">Numero de Telephone</label>
+                    <input type="number" id="num-tel1" autofocus>
+                    <br>
+                    <button type="button" id="btn-check1">Vérifier</button>
+                    <br>
+                    <output id=output2></output> 
+                </fieldset>
             </fieldset>
             <h1>Les Informations du Rendez-vous</h1>
             <fieldset>
@@ -38,7 +60,7 @@
                 <input type="text" id="obj" autofocus>
                 <br>
             </fieldset>
-            <button type="submit">Ajouter Rendez-vous</button>
+            <button type="submit" id="btn-submit">Ajouter Rendez-vous</button>
         </form>
         <script src="./addRDV.js"></script>
   </body>

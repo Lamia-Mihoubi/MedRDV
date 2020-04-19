@@ -14,9 +14,8 @@ const btn=document.getElementById('btn-check');
 const btn1=document.getElementById('btn-submit1');
 const lb1=document.getElementById('output1');
 btn1.disabled = true;
-console.log("heey")
+
 document.getElementById('btn-check').addEventListener('click', () => {
-  console.log("i'm here");
   const item1 = document.querySelector('#nom-patient').value;
   const item2 = document.querySelector('#prenom-patient').value;
   const item3 = document.querySelector('#num-tel').value;
