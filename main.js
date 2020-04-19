@@ -51,8 +51,8 @@ app.on("ready", function () {
 // Handle add item window
 ipcMain.on("ajouter-rdv", () => {
   addRdvWindow = new BrowserWindow({
-    width: 600,
-    height: 600,
+    width: 800,
+    height: 800,
     title: "Ajouter RDV",
     webPreferences: {
       nodeIntegration: true,
@@ -153,8 +153,8 @@ function createAfficherPatientsWindow() {
       webPreferences: {
         nodeIntegration: true,
       },
-      width: 500,
-      height: 350,
+      width: 600,
+      height: 600,
       title: "Afficher tous les patients",
     });
     affPatientsWindow.loadURL(

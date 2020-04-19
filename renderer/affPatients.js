@@ -15,9 +15,8 @@ ul.className = "collection";
 for (let key in pat) {
   const li = document.createElement("li");
   li.className = "collection-item";
-  li.appendChild(
-    document.createTextNode(key + "\n" + String(patientItems.get(key)))
-  );
+  const test=patientItems.get(key)
+  li.appendChild(document.createTextNode(test[2].concat("     ",test[0],"   |   ",test[1],"   |    ",test[2],"   |    ",test[3],"   |     ",test[4],"   |   ",test[5],"   |    ",test[6])));
   ul.appendChild(li);
 }
 

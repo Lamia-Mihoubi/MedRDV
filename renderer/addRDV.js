@@ -95,7 +95,7 @@ document.getElementById('btn-check1').addEventListener('click', () => {
     if(Number.isInteger(int) && (str.length == 9)){
       const test=patientItems.get(item3.toString());
       if (test!=null){
-        lb2.value="Patient déjà existant".concat(" -->>> Nom: ",test[0]," Prenom: ",test[1]);
+        lb2.value="Patient déjà existant".concat(" -->>> Nom: ",test[0],"| Prenom: ",test[1]);
         btn1.disabled = false;
       }
       else{
