@@ -246,8 +246,9 @@ ipcMain.on("rdv:add", function (event, rdv) {
   let month = rdv.dateTime.slice(5, 7);
   let day = rdv.dateTime.slice(8, 10);
   if (day == dd && month == mm && year == yyyy) {
-    console.log("rdv today");
-    mainWindow.webContents.send("rdv-today:display", rdv);
+    console.log("rdv today1");
+    mainWindow.webContents.send("rdv:add", rdv);
+    console.log("rdv today3");
   }
   console.log(rdvManager.rdvList);
 });

@@ -9,11 +9,6 @@ document.getElementById("createPatientBtn").addEventListener("click", () => {
   ipcRenderer.send("add-patient-window");
 });
 
-ipcRenderer.on("rdv-today:display", (event, rdv) => {
-  console.log("hi renderer");
-  displayRDV(rdv);
-});
-
 function displayRDV(rdv) {
   let months = [
     "Janvier",
@@ -41,7 +36,7 @@ function displayRDV(rdv) {
   let cardSubtitle = document.createElement("h6");
   cardSubtitle.className = "card-subtitle mb-2 text-muted";
   let year = rdv.dateTime.slice(0, 4);
-  let month = months[parseint(rdv.dateTime.slice(5, 7))];
+  let month = months[parseInt(rdv.dateTime.slice(5, 7))];
   let day = rdv.dateTime.slice(8, 10);
   let time = rdv.dateTime.slice(11);
   cardSubtitle.appendChild(
@@ -103,6 +98,11 @@ function displayRDV(rdv) {
   card.appendChild(cardBody2);
   rdvsBody.appendChild(card);
 }
+
+ipcRenderer.on("rdv:add", (event, rdv) => {
+  console.log("hi renderer");
+  displayRDV(rdv);
+});
 
 module.exports.displayRDV = (rdv) => {
   displayRDV(rdv);
