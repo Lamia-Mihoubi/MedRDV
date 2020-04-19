@@ -238,6 +238,17 @@ const mainMenuTemplate = [
 ];
 ipcMain.on("rdv:add", function (event, rdv) {
   rdvManager.addRDV(rdv);
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, "0");
+  let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  let yyyy = today.getFullYear();
+  let year = rdv.dateTime.slice(0, 4);
+  let month = rdv.dateTime.slice(5, 7);
+  let day = rdv.dateTime.slice(8, 10);
+  if (day == dd && month == mm && year == yyyy) {
+    console.log("rdv today");
+    mainWindow.webContents.send("rdv-today:display", rdv);
+  }
   console.log(rdvManager.rdvList);
 });
 

@@ -9,12 +9,14 @@ form.addEventListener("submit", submitForm);
 
 function submitForm(e) {
   e.preventDefault();
+  // creating the rdv
   const patientName = document.querySelector("#nom-patient").value;
   const patientTelNum = document.querySelector("#num-tel").value;
   const dateTime = document.querySelector("#date-heure-rdv").value;
   const object = document.querySelector("#obj").value;
   const rdv = new RDV(patientName, patientTelNum, dateTime, object);
+  // clearing the form
   form.reset();
-  console.log(rdv);
+  // sending the rdv to the main process to add it to the rdvList
   ipcRenderer.send("rdv:add", rdv);
 }
