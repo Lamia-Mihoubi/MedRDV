@@ -37,7 +37,7 @@ class RDVManager {
   constructor() {}
 
   static initRdvList() {
-    if (this.rdvList.length == 0) this.rdvList = persistence.loadData() || [];
+    this.rdvList = persistence.loadData() || [];
   }
 
   static addRDV(rdv) {
@@ -61,7 +61,7 @@ class RDVManager {
 
   printRDV(dateTime) {}
 
-  storeRdvList() {
+  static storeRdvList() {
     persistence.store(this.rdvList);
   }
 }

@@ -23,6 +23,8 @@ let affPatientsWindow;
 app.on("ready", function () {
   // Create new window
   mainWindow = new BrowserWindow({
+    width: 950,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
     },
