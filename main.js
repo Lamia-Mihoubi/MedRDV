@@ -2,11 +2,13 @@
 const electron = require("electron");
 const path = require("path");
 const url = require("url");
-const Window = require('./Window');
-const DataStore = require('./DataStore')
+const Window = require("./Window");
+const DataStore = require("./DataStore");
 
 // create a new patients store name "Patients Main"
-const patientsData = new DataStore({ name: 'Patients Main' })
+const patientsData = new DataStore({ name: "Patients Main" });
+const rdvM = require("./renderer/RDVManager");
+let rdvManager = new rdvM();
 // SET ENV
 process.env.NODE_ENV = "development";
 
@@ -23,8 +25,8 @@ app.on("ready", function () {
   // Create new window
   mainWindow = new BrowserWindow({
     webPreferences: {
-            nodeIntegration: true
-        }
+      nodeIntegration: true,
+    },
   });
   // Load html in window
   mainWindow.loadURL(
@@ -36,6 +38,7 @@ app.on("ready", function () {
   );
   // Quit app when closed
   mainWindow.on("closed", function () {
+    rdvManager.storeRdvList();
     app.quit();
   });
 
@@ -43,14 +46,13 @@ app.on("ready", function () {
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   // Insert menu
   Menu.setApplicationMenu(mainMenu);
-
 });
 
 // Handle add item window
 ipcMain.on("ajouter-rdv", () => {
   addRdvWindow = new BrowserWindow({
-    width: 300,
-    height: 200,
+    width: 600,
+    height: 600,
     title: "Ajouter RDV",
     webPreferences: {
       nodeIntegration: true,
@@ -69,174 +71,176 @@ ipcMain.on("ajouter-rdv", () => {
   });
 });
 
-
 //Create the add patient window from clicking on the button ajouter patient
-ipcMain.on('add-patient-window', () => {
+ipcMain.on("add-patient-window", () => {
   // if addTodoWin does not already exist
   if (!addPatientWin) {
     // create a new add patient window
     addPatientWin = new Window({
-      file: path.join(__dirname, "renderer", 'addPatient.html'),
+      file: path.join(__dirname, "renderer", "addPatient.html"),
       width: 500,
       height: 350,
-      title:'Ajouter un patient',
+      title: "Ajouter un patient",
       webPreferences: {
-            nodeIntegration: true
+        nodeIntegration: true,
       },
       // close with the main window
-      parent: mainWindow
-    })
+      parent: mainWindow,
+    });
 
     // cleanup
-    addPatientWin.on('closed', () => {
-      addPatientWin = null
-    })
-  }
-})
-//Create the add patient window
-function createAddPatientWindow(){
-  if(!addPatientWin){
-    addPatientWin = new BrowserWindow({
-    webPreferences: {
-            nodeIntegration: true
-    },
-    width: 500,
-    height:350,
-    title:'Ajouter un patient'
-    });
-    addPatientWin.loadURL(url.format({
-      pathname: path.join(__dirname, "renderer", 'addPatient.html'),
-      protocol: 'file:',
-      slashes:true
-    }));
-    // Handle garbage collection
-    addPatientWin.on('close', function(){
+    addPatientWin.on("closed", () => {
       addPatientWin = null;
     });
   }
-  else{
-    addPatientWin.show()
+});
+//Create the add patient window
+function createAddPatientWindow() {
+  if (!addPatientWin) {
+    addPatientWin = new BrowserWindow({
+      webPreferences: {
+        nodeIntegration: true,
+      },
+      width: 500,
+      height: 350,
+      title: "Ajouter un patient",
+    });
+    addPatientWin.loadURL(
+      url.format({
+        pathname: path.join(__dirname, "renderer", "addPatient.html"),
+        protocol: "file:",
+        slashes: true,
+      })
+    );
+    // Handle garbage collection
+    addPatientWin.on("close", function () {
+      addPatientWin = null;
+    });
+  } else {
+    addPatientWin.show();
   }
-  
 }
 //Create the supp patient window
-function createSuppPatientWindow(){
-  if(!suppPatientWin){
+function createSuppPatientWindow() {
+  if (!suppPatientWin) {
     suppPatientWin = new BrowserWindow({
-    webPreferences: {
-            nodeIntegration: true
-    },
-    width: 500,
-    height:350,
-    title:'Supprimer un patient'
-  });
-  suppPatientWin.loadURL(url.format({
-    pathname: path.join(__dirname, "renderer", 'suppPatient.html'),
-    protocol: 'file:',
-    slashes:true
-  }));
-  // Handle garbage collection
-  suppPatientWin.on('close', function(){
-    suppPatientWin = null;
-  });
+      webPreferences: {
+        nodeIntegration: true,
+      },
+      width: 500,
+      height: 350,
+      title: "Supprimer un patient",
+    });
+    suppPatientWin.loadURL(
+      url.format({
+        pathname: path.join(__dirname, "renderer", "suppPatient.html"),
+        protocol: "file:",
+        slashes: true,
+      })
+    );
+    // Handle garbage collection
+    suppPatientWin.on("close", function () {
+      suppPatientWin = null;
+    });
+  } else {
+    suppPatientWin.show();
   }
-  else{
-    suppPatientWin.show()
-  }
-  
 }
 //Create the aff patient window
-function createAfficherPatientsWindow(){
-  if (!affPatientsWindow){
+function createAfficherPatientsWindow() {
+  if (!affPatientsWindow) {
     affPatientsWindow = new BrowserWindow({
-    webPreferences: {
-            nodeIntegration: true
-    },
-    width: 500,
-    height:350,
-    title:'Afficher tous les patients'
-  });
-  affPatientsWindow.loadURL(url.format({
-    pathname: path.join(__dirname, "renderer", 'affPatients.html'),
-    protocol: 'file:',
-    slashes:true
-  }));
-  // Handle garbage collection
-  affPatientsWindow.on('close', function(){
-    affPatientsWindow = null;
-  });
-  } 
-  else{
-    affPatientsWindow.show()
+      webPreferences: {
+        nodeIntegration: true,
+      },
+      width: 500,
+      height: 350,
+      title: "Afficher tous les patients",
+    });
+    affPatientsWindow.loadURL(
+      url.format({
+        pathname: path.join(__dirname, "renderer", "affPatients.html"),
+        protocol: "file:",
+        slashes: true,
+      })
+    );
+    // Handle garbage collection
+    affPatientsWindow.on("close", function () {
+      affPatientsWindow = null;
+    });
+  } else {
+    affPatientsWindow.show();
   }
 }
 
-
-
 // add-patient from add patient window
-ipcMain.on('item:add', function(event, patient) {
-  const updatedPatients = patientsData.addPatient(patient)
-  mainWindow.send('patients', updatedPatients);
-  if (affPatientsWindow){
-      affPatientsWindow.reload();
+ipcMain.on("item:add", function (event, patient) {
+  const updatedPatients = patientsData.addPatient(patient);
+  mainWindow.send("patients", updatedPatients);
+  if (affPatientsWindow) {
+    affPatientsWindow.reload();
   }
   addPatientWin.close();
-})
+});
 
 // delete-patient from delete patient window
-ipcMain.on('item:supp', function(event, patient) {
-  const pat=patient.toString()
-  const updatedPatients = patientsData.deletePatient(pat,patientsData)
-  if (affPatientsWindow){
-      affPatientsWindow.reload();
+ipcMain.on("item:supp", function (event, patient) {
+  const pat = patient.toString();
+  const updatedPatients = patientsData.deletePatient(pat, patientsData);
+  if (affPatientsWindow) {
+    affPatientsWindow.reload();
   }
   suppPatientWin.close();
-})
+});
 //close the affPatientsWindow
-ipcMain.on('btn:fermer',()=>{
-  affPatientsWindow.close()
-})
-
+ipcMain.on("btn:fermer", () => {
+  affPatientsWindow.close();
+});
 
 //create the mainMenuTemplate
-const mainMenuTemplate =  [
+const mainMenuTemplate = [
   // Each object is a dropdown
   {
-    label: 'File',
-    submenu:[
+    label: "File",
+    submenu: [
       {
-        label: 'Quit',
-        accelerator:process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
-        click(){
+        label: "Quit",
+        accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q",
+        click() {
           app.quit();
-        }
-      }
-    ]
+        },
+      },
+    ],
   },
   {
-    label: 'Patient',
-    submenu:[
+    label: "Patient",
+    submenu: [
       {
-        label:'Ajouter Patient',
-        click(){
+        label: "Ajouter Patient",
+        click() {
           createAddPatientWindow();
-        }
+        },
       },
       {
-        label:'Supprimer Patient',
-        click(){
+        label: "Supprimer Patient",
+        click() {
           createSuppPatientWindow();
-        }
+        },
       },
       {
-        label: 'Afficher la liste des patients',
-        click(){
+        label: "Afficher la liste des patients",
+        click() {
           createAfficherPatientsWindow();
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
 ];
+ipcMain.on("rdv:add", function (event, rdv) {
+  rdvManager.addRDV(rdv);
+  console.log(rdvManager.rdvList);
+});
+
 // Add developer tools option if in dev
 if (process.env.NODE_ENV !== "production") {
   mainMenuTemplate.push({
