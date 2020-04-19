@@ -1,10 +1,14 @@
 // this is the javascript for the addRDV windows
 const electron = require("electron");
-const { ipcRenderer } = electron;
+
+const path = require("path");
+const url = require("url");
+const { ipcRenderer} = electron;
+const BrowserWindow = electron.remote.BrowserWindow;
 const RDV = require("./RDV");
 // todo take care of the values of path and filename
 // check Node.js required modules are singletons or not
-
+let affRDVPrint
 const btn=document.getElementById('btn-check');
 const btn1=document.getElementById('btn-submit');
 const lb1=document.getElementById('output1');
@@ -141,7 +145,7 @@ function submitForm(e) {
     const object = document.querySelector("#obj").value;
     const rdv = new RDV(name , patientTelNum, dateTime, object);
       // clearing the form
-    form.reset();
+    //form.reset();
     // sending the rdv to the main process to add it to the rdvList
     ipcRenderer.send("rdv:add", rdv);
   }
@@ -171,3 +175,52 @@ function submitForm(e) {
 
   
 }
+
+
+document.getElementById('btn-print').addEventListener('click', () => {
+  if (!affRDVPrint) {
+    affRDVPrint = new BrowserWindow ({
+
+      webPreferences: {
+        nodeIntegration: true,
+        webSecurity: false,
+      },
+      width: 500,
+      height: 350,
+      title: "Afficher un RDV",
+    });
+    affRDVPrint.loadURL(
+      url.format({
+        pathname: path.join(__dirname, "printRDV.html"),
+        protocol: "file:",
+        slashes: true,
+      })
+    );
+    // Handle garbage collection
+    affRDVPrint.on("close", function () {
+      affRDVPrint = null;
+    });
+  } 
+  else {
+    affRDVPrint.show();
+  }
+  if (ancien==true){
+    console.log("gggg")
+    const patientTelNum = document.querySelector("#num-tel1").value;
+    const test =patientItems.get(patientTelNum.toString());
+    const patientName = test[0];
+    const patientName2 = test[1];
+    const dateTime = document.querySelector("#date-heure-rdv").value;
+    const object = document.querySelector("#obj").value;
+    const list=[patientName,patientName2,patientTelNum,dateTime,object]
+    ipcRenderer.send('print',list)
+  }
+  else{
+    const item1 = document.querySelector('#nom-patient').value;
+    const item2 = document.querySelector('#prenom-patient').value;
+    const item3 = document.querySelector('#num-tel').value;
+    const dateTime = document.querySelector("#date-heure-rdv").value;
+    const object = document.querySelector("#obj").value;
+    ipcRenderer.send('print',[item1,item2,item3,dateTime,object])
+  }
+})

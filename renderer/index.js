@@ -103,7 +103,6 @@ ipcRenderer.on("rdv:add", (event, rdv) => {
   console.log("hi renderer");
   displayRDV(rdv);
 });
-
 module.exports.displayRDV = (rdv) => {
   displayRDV(rdv);
 };

@@ -19,6 +19,7 @@ let addRdvWindow;
 let addPatientWin;
 let suppPatientWin;
 let affPatientsWindow;
+let affRDVPrint;
 
 // Listen for app to be ready
 app.on("ready", function () {
@@ -108,8 +109,6 @@ function createAddPatientWindow() {
     addPatientWin.loadURL(
       url.format({
         pathname: path.join(__dirname, "renderer", "addPatient.html"),
-        protocol: "file:",
-        slashes: true,
       })
     );
     // Handle garbage collection
@@ -252,7 +251,10 @@ ipcMain.on("rdv:add", function (event, rdv) {
   }
   console.log(rdvManager.rdvList);
 });
-
+ipcMain.on('print',function (event,list){
+  console.log("print");
+  affRDVPrint.webContents.send('printRDV',list);
+});
 // Add developer tools option if in dev
 if (process.env.NODE_ENV !== "production") {
   mainMenuTemplate.push({
