@@ -13,17 +13,22 @@
   <body>
     <h1>MedRDV</h1>
     <div class="rdvs-container">
-      <div class="rdvs-header">
+      <div class="rdvs-header" style="padding-right: 30px; padding-left: 30px;">
         <h3 style="display: inline-block;">Les Rendez-vous d'aujourd'hui</h3>
-        <button id="ajouter-rdv-btn">
+        <button
+          id="ajouter-rdv-btn"
+          class="btn btn-outline-info"
+          style="float: right;"
+        >
           ajouter RDV
         </button>
+        </div>
         <div class="card-columns" style="padding: 30px;"></div>
       </div>
     </div>
     <div>
       <h3 style="display: inline-block;">Ajouter des Patients</h3>
-      <button id="createPatientBtn" type="button" class="btn">
+      <button id="createPatientBtn" type="button" class="btn btn-outline-info">
         Ajouter un patient
       </button>
     </div>
