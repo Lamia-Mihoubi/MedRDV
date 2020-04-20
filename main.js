@@ -19,7 +19,7 @@ let addRdvWindow;
 let addPatientWin;
 let suppPatientWin;
 let affPatientsWindow;
-
+let affRDVPrint;
 // Listen for app to be ready
 app.on("ready", function () {
   // Create new window
@@ -201,7 +201,36 @@ ipcMain.on("item:supp", function (event, patient) {
 ipcMain.on("btn:fermer", () => {
   affPatientsWindow.close();
 });
+ipcMain.on('printRDV', (event,list) => {
+  if (!affRDVPrint) {
+    affRDVPrint = new BrowserWindow ({
 
+      webPreferences: {
+        nodeIntegration: true,
+
+      },
+      width: 500,
+      height: 350,
+      title: "Afficher un RDV",
+    });
+    affRDVPrint.loadURL(
+      url.format({
+        pathname: path.join(__dirname,"renderer" ,"printRDV.html"),
+        protocol: "file:",
+        slashes: true,
+      })
+    );
+    // Handle garbage collection
+    affRDVPrint.on("close", function () {
+      affRDVPrint = null;
+    });
+  } 
+  else {
+    affRDVPrint.show();
+  }
+ affRDVPrint.send('printRDV',list);
+ console.log("haaaaaaaa")
+});
 //create the mainMenuTemplate
 const mainMenuTemplate = [
   // Each object is a dropdown

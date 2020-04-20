@@ -1,8 +1,12 @@
 // that's the js script for the main window
-const { ipcRenderer } = require("electron");
+const { ipcRenderer} = require("electron");
+const { BrowserWindow } = require('electron').remote;
 const RDVManager = require("./RDVManager");
+const path = require("path");
+const url = require("url");
 RDVManager.initRdvList();
-
+let affRDVPrint;
+let mainWindow;
 document.getElementById("ajouter-rdv-btn").addEventListener("click", () => {
   ipcRenderer.send("ajouter-rdv");
 });
@@ -105,6 +109,16 @@ function displayRDV(rdv) {
   cardPrint.appendChild(document.createTextNode(" Imprimer "));
   cardPrint.addEventListener('click',()=>{
   	console.log("print link");
+  	
+    const item1 = rdv.patienName;
+    const item3 = rdv.patientTelNum;
+    const dateTime = "Le ".concat( day , " " , month , " " , year , " à " , time);
+    const object = rdv.object;
+    console.log("ipcRenderer");
+    const list1=[item1,item3,dateTime,object]
+    ipcRenderer.send('printRDV',list1)
+    console.log("ipcRenderer");
+
   })
   cardBody2.appendChild(cardPrint);
   card.appendChild(cardBody2);
