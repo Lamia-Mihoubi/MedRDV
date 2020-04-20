@@ -7,8 +7,8 @@ const DataStore = require("./DataStore");
 
 // create a new patients store name "Patients Main"
 const patientsData = new DataStore({ name: "Patients Main" });
-const rdvM = require("./renderer/RDVManager");
-let rdvManager = new rdvM();
+const RDVManager = require("./renderer/RDVManager");
+RDVManager.initRdvList();
 // SET ENV
 process.env.NODE_ENV = "development";
 
@@ -24,6 +24,8 @@ let affPatientsWindow;
 app.on("ready", function () {
   // Create new window
   mainWindow = new BrowserWindow({
+    width: 980,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -38,7 +40,7 @@ app.on("ready", function () {
   );
   // Quit app when closed
   mainWindow.on("closed", function () {
-    rdvManager.storeRdvList();
+    RDVManager.storeRdvList();
     app.quit();
   });
 
@@ -51,8 +53,8 @@ app.on("ready", function () {
 // Handle add item window
 ipcMain.on("ajouter-rdv", () => {
   addRdvWindow = new BrowserWindow({
-    width: 600,
-    height: 600,
+    width: 800,
+    height: 800,
     title: "Ajouter RDV",
     webPreferences: {
       nodeIntegration: true,
@@ -153,8 +155,8 @@ function createAfficherPatientsWindow() {
       webPreferences: {
         nodeIntegration: true,
       },
-      width: 500,
-      height: 350,
+      width: 600,
+      height: 600,
       title: "Afficher tous les patients",
     });
     affPatientsWindow.loadURL(
@@ -176,11 +178,14 @@ function createAfficherPatientsWindow() {
 // add-patient from add patient window
 ipcMain.on("item:add", function (event, patient) {
   const updatedPatients = patientsData.addPatient(patient);
-  mainWindow.send("patients", updatedPatients);
   if (affPatientsWindow) {
     affPatientsWindow.reload();
+    if(addPatientWin){
+      addPatientWin.close();
+    }
+    
   }
-  addPatientWin.close();
+  
 });
 
 // delete-patient from delete patient window
@@ -237,8 +242,20 @@ const mainMenuTemplate = [
   },
 ];
 ipcMain.on("rdv:add", function (event, rdv) {
-  rdvManager.addRDV(rdv);
-  console.log(rdvManager.rdvList);
+  RDVManager.addRDV(rdv);
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, "0");
+  let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  let yyyy = today.getFullYear();
+  let year = rdv.dateTime.slice(0, 4);
+  let month = rdv.dateTime.slice(5, 7);
+  let day = rdv.dateTime.slice(8, 10);
+  if (day == dd && month == mm && year == yyyy) {
+    console.log("rdv today1");
+    mainWindow.webContents.send("rdv:add", rdv);
+    console.log("rdv today3");
+  }
+  console.log(RDVManager.rdvList);
 });
 
 // Add developer tools option if in dev

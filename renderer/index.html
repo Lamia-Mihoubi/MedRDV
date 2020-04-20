@@ -5,16 +5,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedRDV</title>
+    <link
+      rel="stylesheet"
+      href="../bower_components/bootstrap/dist/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <h1>MedRDV</h1>
-    <h2 style="display: inline-block;">Les Rendez-vous d'aujourd'hui</h2>
-    <button style="float: right;" id="ajouter-rdv-btn">
-      ajouter RDV
-    </button>
+    <div class="rdvs-container">
+      <div class="rdvs-header" style="padding-right: 30px; padding-left: 30px;">
+        <h3 style="display: inline-block;">Les Rendez-vous d'aujourd'hui</h3>
+        <button
+          id="ajouter-rdv-btn"
+          class="btn btn-outline-info"
+          style="float: right;"
+        >
+          ajouter RDV
+        </button>
+        </div>
+        <div class="card-columns" style="padding: 30px;"></div>
+      </div>
+    </div>
     <div>
-      <h1 style="display: inline-block;">Ajouter des Patients</h1>
-      <button id="createPatientBtn" type="button" class="btn">
+      <h3 style="display: inline-block;">Ajouter des Patients</h3>
+      <button id="createPatientBtn" type="button" class="btn btn-outline-info">
         Ajouter un patient
       </button>
     </div>
