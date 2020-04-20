@@ -48,6 +48,7 @@ class RDVManager {
     this.rdvList = this.rdvList.filter((rdv) => {
       return rdv.dateTime != dateTime;
     });
+    this.storeRdvList();
   }
 
   static editRDV(dateTime, newDateTime) {

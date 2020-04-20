@@ -50,6 +50,10 @@ app.on("ready", function () {
   Menu.setApplicationMenu(mainMenu);
 });
 
+ipcMain.on("delete:rdv", (id) => {
+  RDVManager.deleteRDV(id);
+  console.log("deleted" + id);
+});
 // Handle add item window
 ipcMain.on("ajouter-rdv", () => {
   addRdvWindow = new BrowserWindow({
@@ -180,12 +184,10 @@ ipcMain.on("item:add", function (event, patient) {
   const updatedPatients = patientsData.addPatient(patient);
   if (affPatientsWindow) {
     affPatientsWindow.reload();
-    if(addPatientWin){
+    if (addPatientWin) {
       addPatientWin.close();
     }
-    
   }
-  
 });
 
 // delete-patient from delete patient window

@@ -95,7 +95,9 @@ function displayRDV(rdv) {
   let cardDel = document.createElement("button");
   cardDel.addEventListener("click", (event) => {
     let rdvCard = cardDel.parentNode.parentNode;
-    let id = rdvCard.id;
+    let id = toString(rdvCard.id);
+    RDVManager.deleteRDV(id);
+    ipcRenderer.send("delete:rdv", id);
     rdvCard.parentNode.removeChild(rdvCard);
   });
   cardDel.style.margin = "1.5px";
