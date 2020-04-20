@@ -40,7 +40,7 @@ function displayRDV(rdv) {
   let cardSubtitle = document.createElement("h7");
   cardSubtitle.className = "card-subtitle mb-2 text-muted";
   let year = rdv.dateTime.slice(0, 4);
-  let month = months[parseInt(rdv.dateTime.slice(5, 7))];
+  let month = months[parseInt(rdv.dateTime.slice(5, 7)) - 1];
   let day = rdv.dateTime.slice(8, 10);
   let time = rdv.dateTime.slice(11);
   cardSubtitle.appendChild(
