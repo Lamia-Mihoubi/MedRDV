@@ -164,7 +164,7 @@ function submitForm(e) {
     const object = document.querySelector("#obj").value;
     const rdv = new RDV(name , patientTelNum, dateTime, object);
       // clearing the form
-    //form.reset();
+    form.reset();
     // sending the rdv to the main process to add it to the rdvList
     ipcRenderer.send("rdv:add", rdv);
   }

@@ -103,6 +103,9 @@ function displayRDV(rdv) {
   cardPrint.style.margin = "1.5px";
   cardPrint.className = "btn btn-primary btn-sm";
   cardPrint.appendChild(document.createTextNode(" Imprimer "));
+  cardPrint.addEventListener('click',()=>{
+  	console.log("print link");
+  })
   cardBody2.appendChild(cardPrint);
   card.appendChild(cardBody2);
   rdvsBody.appendChild(card);
