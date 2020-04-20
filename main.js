@@ -178,7 +178,10 @@ ipcMain.on("item:add", function (event, patient) {
   const updatedPatients = patientsData.addPatient(patient);
   if (affPatientsWindow) {
     affPatientsWindow.reload();
-    addPatientWin.close();
+    if(addPatientWin){
+      addPatientWin.close();
+    }
+    
   }
   
 });
