@@ -29,6 +29,7 @@ function displayRDV(rdv) {
   let rdvsBody = document.querySelector(".card-columns");
   let card = document.createElement("div");
   card.className = "card";
+  card.setAttribute("id", rdv.dateTime);
   card.style.width = "18rem";
   let cardBody1 = document.createElement("div");
   cardBody1.className = "card-body";
@@ -86,20 +87,22 @@ function displayRDV(rdv) {
   card.appendChild(cardList);
   let cardBody2 = document.createElement("div");
   cardBody2.className = "card-body";
-  let cardEdit = document.createElement("a");
-  cardEdit.href = "#";
+  let cardEdit = document.createElement("button");
   cardEdit.style.margin = "1.5px";
   cardEdit.className = "btn btn-success btn-primary btn-sm";
   cardEdit.appendChild(document.createTextNode(" Modifier "));
   cardBody2.appendChild(cardEdit);
-  let cardDel = document.createElement("a");
-  cardDel.href = "#";
+  let cardDel = document.createElement("button");
+  cardDel.addEventListener("click", (event) => {
+    let rdvCard = cardDel.parentNode.parentNode;
+    let id = rdvCard.id;
+    rdvCard.parentNode.removeChild(rdvCard);
+  });
   cardDel.style.margin = "1.5px";
   cardDel.className = "btn btn-danger btn-primary btn-sm";
   cardDel.appendChild(document.createTextNode(" Supprimer "));
   cardBody2.appendChild(cardDel);
-  let cardPrint = document.createElement("a");
-  cardPrint.href = "#";
+  let cardPrint = document.createElement("button");
   cardPrint.style.margin = "1.5px";
   cardPrint.className = "btn btn-primary btn-sm";
   cardPrint.appendChild(document.createTextNode(" Imprimer "));
