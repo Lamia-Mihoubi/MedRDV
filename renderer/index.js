@@ -6,8 +6,7 @@ const path = require("path");
 const url = require("url");
 RDVManager.initRdvList();
 const fs = require("fs");
-let affRDVPrint;
-let mainWindow;
+let view = "today";
 document.getElementById("ajouter-rdv-btn").addEventListener("click", () => {
   ipcRenderer.send("ajouter-rdv");
 });
@@ -16,7 +15,49 @@ document.getElementById("createPatientBtn").addEventListener("click", () => {
   ipcRenderer.send("add-patient-window");
 });
 
+let search = document.getElementById("search-patient");
+search.addEventListener("search", () => {
+  console.log(RDVManager.rdvList);
+  let e = document.querySelector(".card-columns");
+  let ind = 0;
+  //e.firstElementChild can be used.
+  let child = e.lastElementChild;
+  while (child) {
+    e.removeChild(child);
+    child = e.lastElementChild;
+  }
+  if (view == "nottoday") {
+    while (ind < RDVManager.rdvList.length) {
+      if (RDVManager.rdvList[ind].patientTelNum == search.value)
+        displayRDV(RDVManager.rdvList[ind]);
+      ind++;
+    }
+  } else {
+    while (ind < RDVManager.rdvList.length) {
+      if (RDVManager.rdvList[ind].patientTelNum == search.value) {
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, "0");
+        let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+        let yyyy = today.getFullYear();
+        let day = "";
+        let month = "";
+        let year = "";
+        while (index < RDVManager.rdvList.length) {
+          dateTime = RDVManager.rdvList[index].dateTime;
+          year = dateTime.slice(0, 4);
+          month = dateTime.slice(5, 7);
+          day = dateTime.slice(8, 10);
+          if (day == dd && month == mm && year == yyyy)
+            displayRDV(RDVManager.rdvList[index]);
+        }
+      }
+      ind++;
+    }
+  }
+});
+
 document.getElementById("afficher-rdv-btn").addEventListener("click", () => {
+  view = "nottoday";
   console.log(RDVManager.rdvList);
   let e = document.querySelector(".card-columns");
   let ind = 0;
@@ -49,8 +90,9 @@ function displayRDV(rdv) {
   ];
   let rdvsBody = document.querySelector(".card-columns");
   let card = document.createElement("div");
-  card.className = "card";
+  card.className = "card " + rdv.patientTelNum;
   card.style.width = "18rem";
+  card.id = rdv.dateTime;
   let cardBody1 = document.createElement("div");
   cardBody1.className = "card-body";
   let cardTitle = document.createElement("h5");
@@ -171,6 +213,7 @@ ipcRenderer.on("rdv:add", (event, rdv) => {
 });
 
 window.addEventListener("load", function (event) {
+  view = "today";
   console.log(RDVManager.rdvList);
   index = 0;
   let today = new Date();
