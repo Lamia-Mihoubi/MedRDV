@@ -17,6 +17,7 @@ document.getElementById("createPatientBtn").addEventListener("click", () => {
 });
 
 document.getElementById("afficher-rdv-btn").addEventListener("click", () => {
+  console.log(RDVManager.rdvList);
   let e = document.querySelector(".card-columns");
   let ind = 0;
   //e.firstElementChild can be used.
@@ -117,6 +118,14 @@ function displayRDV(rdv) {
   cardDel.style.margin = "1.5px";
   cardDel.className = "btn btn-danger btn-primary btn-sm";
   cardDel.appendChild(document.createTextNode(" Supprimer "));
+  cardDel.addEventListener("click", (event) => {
+    let rdvCard = cardDel.parentNode.parentNode;
+    let id = toString(rdvCard.id);
+    RDVManager.deleteRDV(id);
+    RDVManager.storeRdvList();
+    ipcRenderer.send("delete:rdv", id);
+    rdvCard.parentNode.removeChild(rdvCard);
+  });
   cardBody2.appendChild(cardDel);
   let cardPrint = document.createElement("a");
   cardPrint.href = "#";
