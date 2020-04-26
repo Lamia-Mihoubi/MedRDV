@@ -16,6 +16,20 @@ document.getElementById("createPatientBtn").addEventListener("click", () => {
   ipcRenderer.send("add-patient-window");
 });
 
+document.getElementById("afficher-rdv-btn").addEventListener("click", () => {
+  let e = document.querySelector(".card-columns");
+  let ind = 0;
+  //e.firstElementChild can be used.
+  let child = e.lastElementChild;
+  while (child) {
+    e.removeChild(child);
+    child = e.lastElementChild;
+  }
+  while (ind < RDVManager.rdvList.length) {
+    displayRDV(RDVManager.rdvList[ind]);
+    ind++;
+  }
+});
 function displayRDV(rdv) {
   RDVManager.initRdvList();
   let months = [
@@ -45,7 +59,7 @@ function displayRDV(rdv) {
   let cardSubtitle = document.createElement("h7");
   cardSubtitle.className = "card-subtitle mb-2 text-muted";
   let year = rdv.dateTime.slice(0, 4);
-  let month = months[parseInt(rdv.dateTime.slice(5, 7))];
+  let month = months[parseInt(rdv.dateTime.slice(5, 7)) - 1];
   let day = rdv.dateTime.slice(8, 10);
   let time = rdv.dateTime.slice(11);
   cardSubtitle.appendChild(
