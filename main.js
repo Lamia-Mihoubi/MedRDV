@@ -56,7 +56,7 @@ app.on("ready", function () {
 ipcMain.on("ajouter-rdv", () => {
   addRdvWindow = new BrowserWindow({
     width: 800,
-    height: 800,
+    height: 900,
     title: "Ajouter RDV",
     webPreferences: {
       nodeIntegration: true,
