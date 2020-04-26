@@ -211,7 +211,7 @@ ipcMain.on('printRDV1', (event,rdv) => {
 
       },
       width: 500,
-      height: 350,
+      height: 400,
       title: "Afficher un RDV",
     });
     affRDVPrint.loadURL(

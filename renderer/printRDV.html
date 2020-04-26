@@ -3,22 +3,33 @@
 <html lang="en">
   <head>
     <title>AfficherRDV</title>
+    <link
+      rel="stylesheet"
+      href="../bower_components/bootstrap/dist/css/bootstrap.min.css"
+    />
   </head>
   <body>
-    <div>
+    <div style="padding-right: 25px; padding-left: 25px; padding-top: 25px">
+      <div class="card" style="width:440px;">
         <fieldset>
-          <h1>Rendez-vous Médical:  </h1>
-          <label>Nom du Patient:  </label><output id="op1"></output>
+          <div class="text-center" style="padding-bottom: 30px; padding-top: 10px;">
+            <h3 class="card-title font-weight-bold">Rendez-vous Médical  </h3>
+          </div>
+          <label class="card-text font-weight-bold" style="padding-bottom: 20px;padding-left: 25px;padding-right: 25px;">Nom du Patient:  </label><output id="op1"></output>
           <br>
-          <label>N° de Tél:  </label><output id="op3"></output>
+          <label class="card-text font-weight-bold" style="padding-bottom: 20px;padding-left: 25px;padding-right: 25px;">N° de Tél:  </label><output id="op3"></output>
           <br>
-          <label>Date et heure du RDV:    </label><output id="op4"></output>
+          <label class="card-text font-weight-bold" style="padding-bottom: 20px;padding-left: 25px;padding-right: 25px;">Date et heure du RDV:    </label><output id="op4"></output>
           <br>
-          <label>Object du RDV:</label> <output id="op5"></output>
+          <label class="card-text font-weight-bold" style="padding-bottom: 20px;padding-left: 25px;padding-right: 25px;">Object du RDV:</label> <output id="op5"></output>
           <br>
-      </fieldset>
-      <button id="btn">Imprimer ce RDV</button>
+        </fieldset>
+        <div class="text-center">
+          <button id="btn" class="btn btn-outline-secondary">Imprimer</button>
+        </div>
+      </div>
     </div>
+    
   </body>
   <script src="./printRDV.js"></script>
 </html>
