@@ -49,6 +49,7 @@ document.getElementById('btn-check').addEventListener('click', () => {
   }
 
 })
+const form=document.querySelector('form')
 document.querySelector('form').addEventListener('submit', submitForm);
 
     function submitForm(e){
@@ -61,4 +62,5 @@ document.querySelector('form').addEventListener('submit', submitForm);
       const item6 = document.querySelector('#mail').value;
       const item7 = document.querySelector('#info-med').value;
       ipcRenderer.send('item:add', [item1,item2,item3,item4,item5,item6,item7]);
+      form.reset();
     }

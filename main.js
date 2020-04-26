@@ -82,8 +82,8 @@ ipcMain.on("add-patient-window", () => {
     // create a new add patient window
     addPatientWin = new Window({
       file: path.join(__dirname, "renderer", "addPatient.html"),
-      width: 500,
-      height: 350,
+      width: 520,
+      height: 500,
       title: "Ajouter un patient",
       webPreferences: {
         nodeIntegration: true,
@@ -105,8 +105,8 @@ function createAddPatientWindow() {
       webPreferences: {
         nodeIntegration: true,
       },
-      width: 500,
-      height: 350,
+      width: 520,
+      height: 500,
       title: "Ajouter un patient",
     });
     addPatientWin.loadURL(

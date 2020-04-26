@@ -5,40 +5,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedRDV</title>
+    <link
+      rel="stylesheet"
+      href="../bower_components/bootstrap/dist/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <div class="container">
         <form>
-            <h1>Les informations du Patient</h1>
+            <div class="text-center">
+                <h1>Informations du Patient</h1>
+            </div>
             <fieldset>
-                <label>Nom du Patient</label>
-                <input type="text" id="nom-patient" autofocus>
-                <br>
-                <label>Prénom du Patient</label>
-                <input type="text" id="prenom-patient" autofocus>
-                <br>
-                <label>Numero de Telephone (sans le 0)</label>
-                <input type="number" id="num-tel" autofocus>
-                <br>
-                <label>Date de Naissance</label>
-                <input type="date" id="date-naiss" autofocus>
-                <br>
-                <label>Adresse</label>
-                <input type="text" id="adresse" autofocus>
-                <br>
-                <label>Mail</label>
-                <input type="email" id="mail" autofocus>
-                <br>
-                <label>Informations Médicales</label>
-                <input type="text" id="info-med" autofocus>
-                <br>
-                <button type="button" id="btn-check">Vérifier</button>
-                <br>
-                <output id=output1></output> 
+                <div style="padding-right: 25px; padding-left: 25px;">
+                    <label style="padding-bottom: 10px;">Nom du Patient</label>
+                    <input type="text" id="nom-patient" style="float: right;" autofocus>
+                    <br>
+                    <label style="padding-bottom: 10px;">Prénom du Patient</label>
+                    <input type="text" id="prenom-patient" style="float: right;" autofocus>
+                    <br>
+                    <label style="padding-bottom: 10px;">Numero de Telephone (sans le 0)</label>
+                    <input type="number" id="num-tel" style="float: right;" autofocus>
+                    <br>
+                    <label style="padding-bottom: 10px;">Date de Naissance</label>
+                    <input type="date" id="date-naiss" style="float: right;" autofocus>
+                    <br>
+                    <label style="padding-bottom: 10px;">Adresse</label>
+                    <input type="text" id="adresse" style="float: right;" autofocus>
+                    <br>
+                    <label style="padding-bottom: 10px;">Mail</label>
+                    <input type="email" id="mail" style="float: right;" autofocus>
+                    <br>
+                    <label style="padding-bottom: 10px;">Informations Médicales</label>
+                    <input type="text" id="info-med" style="float: right;" autofocus>
+                    <br>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary" style="float: center;" id="btn-check">Vérifier</button>
+                    </div>
+                    <div class="text-center">
+                        <output id=output1></output> 
+                    </div>
+                </div>
             </fieldset>
-
-            <button type="submit" id="btn-submit1">Ajouter Patient</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-info" id="btn-submit1">Ajouter Patient</button>
+            </div>
         </form>
         <script src="./addPatient.js"></script>
   </body>
 </html>
+
+
