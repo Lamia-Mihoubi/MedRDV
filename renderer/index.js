@@ -1,11 +1,11 @@
 // that's the js script for the main window
-const { ipcRenderer} = require("electron");
-const { BrowserWindow } = require('electron').remote;
+const { ipcRenderer } = require("electron");
+const { BrowserWindow } = require("electron").remote;
 const RDVManager = require("./RDVManager");
 const path = require("path");
 const url = require("url");
 RDVManager.initRdvList();
-const fs = require('fs')
+const fs = require("fs");
 let affRDVPrint;
 let mainWindow;
 document.getElementById("ajouter-rdv-btn").addEventListener("click", () => {
@@ -17,6 +17,7 @@ document.getElementById("createPatientBtn").addEventListener("click", () => {
 });
 
 function displayRDV(rdv) {
+  RDVManager.initRdvList();
   let months = [
     "Janvier",
     "Fevrier",
@@ -108,45 +109,46 @@ function displayRDV(rdv) {
   cardPrint.style.margin = "1.5px";
   cardPrint.className = "btn btn-primary btn-sm";
   cardPrint.appendChild(document.createTextNode(" Imprimer "));
-  cardPrint.addEventListener('click',()=>{
-  	console.log("print link");
-  	
+  cardPrint.addEventListener("click", () => {
+    console.log("print link");
+
     const item1 = rdv.patienName;
     const item3 = rdv.patientTelNum;
-    const dateTime = "Le ".concat( day , " " , month , " " , year , " à " , time);
+    const dateTime = "Le ".concat(day, " ", month, " ", year, " à ", time);
     const object = rdv.object;
-    const list1=[item1,item3,dateTime,object]
+    const list1 = [item1, item3, dateTime, object];
     const rdv_one = {
-	    nom: item1,
-	    numero: item3,
-	    date: dateTime,
-	    obj:object,
-	}
-	const jsonString = JSON.stringify(rdv_one);
-	console.log(jsonString);
-	fs.writeFile('./renderer/rdv_one.json', jsonString, err => {
-	    if (err) {
-	        console.log('Error writing file', err)
-	    } else {
-	        console.log('Successfully wrote file')
-	    }
-	});
+      nom: item1,
+      numero: item3,
+      date: dateTime,
+      obj: object,
+    };
+    const jsonString = JSON.stringify(rdv_one);
+    console.log(jsonString);
+    fs.writeFile("./renderer/rdv_one.json", jsonString, (err) => {
+      if (err) {
+        console.log("Error writing file", err);
+      } else {
+        console.log("Successfully wrote file");
+      }
+    });
 
-    ipcRenderer.send('printRDV1',list1)
+    ipcRenderer.send("printRDV1", list1);
     console.log("ipcRenderer");
-
-  })
+  });
   cardBody2.appendChild(cardPrint);
   card.appendChild(cardBody2);
   rdvsBody.appendChild(card);
 }
 
 ipcRenderer.on("rdv:add", (event, rdv) => {
+  RDVManager.initRdvList();
   console.log("hi renderer");
   displayRDV(rdv);
 });
 
 window.addEventListener("load", function (event) {
+  console.log(RDVManager.rdvList);
   index = 0;
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, "0");

@@ -11,7 +11,7 @@ const RDVManager = require("./renderer/RDVManager");
 RDVManager.initRdvList();
 // SET ENV
 process.env.NODE_ENV = "development";
-var EventEmitter = require('events').EventEmitter;
+var EventEmitter = require("events").EventEmitter;
 
 var print = new EventEmitter();
 const { app, BrowserWindow, Menu, ipcMain } = electron;
@@ -182,12 +182,10 @@ ipcMain.on("item:add", function (event, patient) {
   const updatedPatients = patientsData.addPatient(patient);
   if (affPatientsWindow) {
     affPatientsWindow.reload();
-    if(addPatientWin){
+    if (addPatientWin) {
       addPatientWin.close();
     }
-    
   }
-  
 });
 
 // delete-patient from delete patient window
@@ -202,13 +200,11 @@ ipcMain.on("item:supp", function (event, patient) {
 ipcMain.on("btn:fermer", () => {
   affPatientsWindow.close();
 });
-ipcMain.on('printRDV1', (event,rdv) => {
+ipcMain.on("printRDV1", (event, rdv) => {
   if (!affRDVPrint) {
-    affRDVPrint = new BrowserWindow ({
-
+    affRDVPrint = new BrowserWindow({
       webPreferences: {
         nodeIntegration: true,
-
       },
       width: 500,
       height: 400,
@@ -216,31 +212,28 @@ ipcMain.on('printRDV1', (event,rdv) => {
     });
     affRDVPrint.loadURL(
       url.format({
-        pathname: path.join(__dirname,"renderer" ,"printRDV.html"),
+        pathname: path.join(__dirname, "renderer", "printRDV.html"),
         protocol: "file:",
         slashes: true,
       })
     );
-    
+
     // Handle garbage collection
     affRDVPrint.on("close", function () {
       affRDVPrint = null;
     });
-    
-  } 
-  else {
+  } else {
     affRDVPrint.show();
   }
-  
 });
-print.on("print-rdv",function(rdv){
+print.on("print-rdv", function (rdv) {
   console.log("pppppp");
-  print_rdv=rdv;
+  print_rdv = rdv;
   console.log("pppppp");
-})
-ipcMain.on('print2',function(event,print){
-  affRDVPrint.send('print1')
-})
+});
+ipcMain.on("print2", function (event, print) {
+  affRDVPrint.send("print1");
+});
 //create the mainMenuTemplate
 const mainMenuTemplate = [
   // Each object is a dropdown
@@ -282,6 +275,7 @@ const mainMenuTemplate = [
 ];
 ipcMain.on("rdv:add", function (event, rdv) {
   RDVManager.addRDV(rdv);
+  RDVManager.storeRdvList();
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, "0");
   let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
