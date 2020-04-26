@@ -132,7 +132,7 @@ function createSuppPatientWindow() {
         nodeIntegration: true,
       },
       width: 500,
-      height: 350,
+      height: 370,
       title: "Supprimer un patient",
     });
     suppPatientWin.loadURL(

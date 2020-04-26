@@ -5,18 +5,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedRDV</title>
+    <link
+      rel="stylesheet"
+      href="../bower_components/bootstrap/dist/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <div class="container">
         <form>
-            <h1>Les informations du Patient à supprimer</h1>
+            <div class="text-center">
+                <h1>Supprimer Patient</h1>
+            </div>
             <fieldset>
-                <label>Numero de Telephone</label>
-                <input type="tel" id="num-tel" autofocus><button type="button" id="btn-search">Rechercher Patient</button>
-                <br>
-                <ul id="patientList"></ul>
+                <div class="text-center" style="padding-right: 25px; padding-left: 25px; padding-top: 25px">
+                    <label style="padding-bottom: 20px;">Numero de Telephone</label>
+                    <input type="tel" id="num-tel" autofocus>
+                    <br>
+                    <div class="text-center">
+                        <button type="button" id="btn-search">Rechercher Patient</button>
+                        <ul id="patientList"></ul>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <table id="table" style="width:100%">
+                      <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th> 
+                      </tr>
+                    </table>
+                </div>
             </fieldset>
-            <button type="submit" id="btn-submit">Supprimer Patient</button>
+            <div class="text-center" style="padding-top: 25px">
+                <button type="submit" class="btn btn-info" id="btn-submit">Supprimer Patient</button>
+            </div>
         </form>
         <script src="./suppPatient.js"></script>
   </body>
