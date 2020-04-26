@@ -7,7 +7,7 @@ const DataStore = require("../DataStore");
 
 const patientsData = new DataStore({ name: "Patients Main" });
 
-
+var table = document.getElementById("table");
 let affPatientsWindow;
 const patientItems = patientsData.getPatient();
 const pat = patientItems.get();
@@ -24,8 +24,8 @@ document.getElementById('btn-search').addEventListener('click', () => {
 	console.log("i'm here");
 	const key = document.querySelector('#num-tel').value;
 	if (patientItems.get(key.toString())!=null){
-		text.nodeValue="Trouvé"
-		var table = document.getElementById("table");
+		text.nodeValue="Trouvé";
+
 		// Create an empty <tr> element and add it to the 1st position of the table:
 		var row = table.insertRow(1);
 		const tet=String(patientItems.get(key.toString()));
@@ -46,9 +46,14 @@ document.getElementById('btn-search').addEventListener('click', () => {
 
 })
 
+const form=document.querySelector('form');
 document.querySelector('form').addEventListener('submit', submitForm);
     function submitForm(e){
       e.preventDefault();
       const item3 = document.querySelector('#num-tel').value;
       ipcRenderer.send('item:supp', item3);
+      table.deleteRow(1);
+      text.nodeValue=""
+      bt.disabled = true;
+      form.reset();
     }

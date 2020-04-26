@@ -157,7 +157,7 @@ function createAfficherPatientsWindow() {
       webPreferences: {
         nodeIntegration: true,
       },
-      width: 600,
+      width: 800,
       height: 600,
       title: "Afficher tous les patients",
     });
@@ -197,7 +197,6 @@ ipcMain.on("item:supp", function (event, patient) {
   if (affPatientsWindow) {
     affPatientsWindow.reload();
   }
-  suppPatientWin.close();
 });
 //close the affPatientsWindow
 ipcMain.on("btn:fermer", () => {

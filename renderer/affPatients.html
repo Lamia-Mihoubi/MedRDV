@@ -5,15 +5,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedRDV</title>
+    <link
+      rel="stylesheet"
+      href="../bower_components/bootstrap/dist/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <div class="container">
         <form>
-            <h1>Les informations du Patient</h1>
-            
-            <p>     Nom | Prenom | N° Tél | Date de Naissance | Adresse | E-Mail | Informations Médicales"</h2>
+            <div class="text-center" style="padding-bottom: 30px; padding-top: 10px;">
+                <h1>Liste des Patients</h1>
+            </div>
+            <div class="text-center">
+                    <table class="table table-hover" id="table">
+                      <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th> 
+                        <th>N° Tél</th> 
+                        <th>Date Naissance</th> 
+                        <th>Adresse</th> 
+                        <th>Mail</th> 
+                        <th>Informations Médicales</th> 
+                      </tr>
+                    </table>
+                </div>
             <ul id="patientsList"></ul>
-            <button id="btn-fermer">Fermer</button>
+            <div class="text-center">
+                <button class="btn btn-info" id="btn-fermer">Fermer</button>
+            </div>
         </form>
   </body>
   <script src="./affPatients.js"></script>
