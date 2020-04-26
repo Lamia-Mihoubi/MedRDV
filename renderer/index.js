@@ -5,6 +5,7 @@ const RDVManager = require("./RDVManager");
 const path = require("path");
 const url = require("url");
 RDVManager.initRdvList();
+const fs = require('fs')
 let affRDVPrint;
 let mainWindow;
 document.getElementById("ajouter-rdv-btn").addEventListener("click", () => {
@@ -114,9 +115,24 @@ function displayRDV(rdv) {
     const item3 = rdv.patientTelNum;
     const dateTime = "Le ".concat( day , " " , month , " " , year , " à " , time);
     const object = rdv.object;
-    console.log("ipcRenderer");
     const list1=[item1,item3,dateTime,object]
-    ipcRenderer.send('printRDV',list1)
+    const rdv_one = {
+	    nom: item1,
+	    numero: item3,
+	    date: dateTime,
+	    obj:object,
+	}
+	const jsonString = JSON.stringify(rdv_one);
+	console.log(jsonString);
+	fs.writeFile('./renderer/rdv_one.json', jsonString, err => {
+	    if (err) {
+	        console.log('Error writing file', err)
+	    } else {
+	        console.log('Successfully wrote file')
+	    }
+	});
+
+    ipcRenderer.send('printRDV1',list1)
     console.log("ipcRenderer");
 
   })

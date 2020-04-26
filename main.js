@@ -11,9 +11,11 @@ const RDVManager = require("./renderer/RDVManager");
 RDVManager.initRdvList();
 // SET ENV
 process.env.NODE_ENV = "development";
+var EventEmitter = require('events').EventEmitter;
 
+var print = new EventEmitter();
 const { app, BrowserWindow, Menu, ipcMain } = electron;
-
+var print_rdv;
 let mainWindow;
 let addRdvWindow;
 let addPatientWin;
@@ -201,7 +203,7 @@ ipcMain.on("item:supp", function (event, patient) {
 ipcMain.on("btn:fermer", () => {
   affPatientsWindow.close();
 });
-ipcMain.on('printRDV', (event,list) => {
+ipcMain.on('printRDV1', (event,rdv) => {
   if (!affRDVPrint) {
     affRDVPrint = new BrowserWindow ({
 
@@ -220,17 +222,26 @@ ipcMain.on('printRDV', (event,list) => {
         slashes: true,
       })
     );
+    
     // Handle garbage collection
     affRDVPrint.on("close", function () {
       affRDVPrint = null;
     });
+    
   } 
   else {
     affRDVPrint.show();
   }
- affRDVPrint.send('printRDV',list);
- console.log("haaaaaaaa")
+  
 });
+print.on("print-rdv",function(rdv){
+  console.log("pppppp");
+  print_rdv=rdv;
+  console.log("pppppp");
+})
+ipcMain.on('print2',function(event,print){
+  affRDVPrint.send('print1')
+})
 //create the mainMenuTemplate
 const mainMenuTemplate = [
   // Each object is a dropdown
