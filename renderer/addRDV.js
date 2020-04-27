@@ -10,6 +10,7 @@ const btn1=document.getElementById('btn-submit');
 const lb1=document.getElementById('output1');
 const btn2=document.getElementById('btn-check2');
 const lb2=document.getElementById('output2');
+
 const liste=["l1","l2","l3","l4","l5","l6","l7","nom-patient","prenom-patient","num-tel","date-naiss","adresse","mail","info-med","btn-check"];
 const ll2=["l10","num-tel1","btn-check1"];
 const DataStore = require("../DataStore");
@@ -19,6 +20,7 @@ const patientsData = new DataStore({ name: "Patients Main" });
 const patientItems = patientsData.getPatient();
 const pat = patientItems.get();
 var ancien=false;
+
 document.getElementById('nouv-btn').addEventListener('click',()=> {
   console.log(liste)
   console.log(ll2)
@@ -69,6 +71,7 @@ document.getElementById('btn-check').addEventListener('click', () => {
       else{
         lb1.value="Patient valide";
         btn1.disabled = false;
+
       }
       
     }
@@ -164,7 +167,7 @@ function submitForm(e) {
     const object = document.querySelector("#obj").value;
     const rdv = new RDV(name , patientTelNum, dateTime, object);
       // clearing the form
-    //form.reset();
+    form.reset();
     // sending the rdv to the main process to add it to the rdvList
     ipcRenderer.send("rdv:add", rdv);
   }

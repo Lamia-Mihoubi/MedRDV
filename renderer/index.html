@@ -11,24 +11,28 @@
     />
   </head>
   <body>
-    <h1>MedRDV</h1>
+    <h1 style="text-align: center; color: dodgerblue;">MedRDV</h1>
     <div class="rdvs-container">
       <div class="rdvs-header" style="padding-right: 30px; padding-left: 30px;">
-        <h3 style="display: inline-block;">Les Rendez-vous d'aujourd'hui</h3>
+        <h3 style="display: inline-block;">Les Rendez-vous</h3>
+        <input type="search" name="search-patient" id="search-patient" placeholder="Filtrer par numéro du patient" style="margin-left: 300px; width: 250px;">
         <button
           id="ajouter-rdv-btn"
           class="btn btn-outline-info"
           style="float: right;"
         >
-          ajouter RDV
+          Ajouter RDV
+        </button>
+        <button id="afficher-rdv-btn" class="btn btn-outline-info" style="float: right; margin-right: 30px;">
+        Afficher tous les RDVs
         </button>
         </div>
         <div class="card-columns" style="padding: 30px;"></div>
       </div>
     </div>
     <div>
-      <h3 style="display: inline-block;">Ajouter des Patients</h3>
-      <button id="createPatientBtn" type="button" class="btn btn-outline-info">
+      <h3 style="display: inline-block; margin-left: 30px;">Ajouter des Patients</h3>
+      <button id="createPatientBtn" type="button" class="btn btn-outline-info" style="float: right; margin-right: 30px;">
         Ajouter un patient
       </button>
     </div>

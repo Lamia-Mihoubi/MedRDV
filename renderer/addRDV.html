@@ -5,62 +5,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedRDV</title>
+    <link
+      rel="stylesheet"
+      href="../bower_components/bootstrap/dist/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <div>
         <form>
-            <h1>Les Informations du Patient</h1>
+            <div class="text-center" style="padding-bottom: 30px; padding-top: 10px;">
+                <h1>Les Informations du Patient</h1>
+            </div>
             <fieldset>
-                <button type="button" id="nouv-btn">Nouveau Patient</button><button type="button" id="an-btn">Ancien Patient</button>
+                <div class="text-center">
+                    <button type="button" id="nouv-btn" class="btn btn-outline-success">Nouveau Patient</button><button type="button" id="an-btn"class="btn btn-outline-success">Ancien Patient</button>
+                </div>
             </fieldset>
-            <fieldset >
+            <div style="padding-right: 150px; padding-left: 150px; padding-top: 20px">
                 <fieldset >
-                    <label id="l1">Nom du Patient</label>
-                    <input type="text" id="nom-patient" autofocus>
-                    <br>
-                    <label id="l7">Prénom du Patient</label>
-                    <input type="text" id="prenom-patient" autofocus>
-                    <br>
-                    <label id="l2">Numero de Telephone</label>
-                    <input type="number" id="num-tel" autofocus>
-                    <br>
-                    <label id="l3">Date de Naissance</label>
-                    <input type="date" id="date-naiss" autofocus>
-                    <br>
-                    <label id="l4">Adresse</label>
-                    <input type="text" id="adresse" autofocus>
-                    <br>
-                    <label id="l5">Email</label>
-                    <input type="email" id="mail" autofocus>
-                    <br>
-                    <label id="l6">Informations Médicales</label>
-                    <input type="text" id="info-med" autofocus>
-                    <br>
-                    <button type="button" id="btn-check">Vérifier</button>
-                    <br>
-                    <output id=output1></output> 
+                    <fieldset >
+                        <label id="l1" style="padding-bottom: 10px;">Nom du Patient</label>
+                        <input type="text" id="nom-patient" style="float: right;" autofocus>
+                        <br>
+                        <label id="l7" style="padding-bottom: 10px;">Prénom du Patient</label>
+                        <input type="text" id="prenom-patient" style="float: right;" autofocus>
+                        <br>
+                        <label id="l2" style="padding-bottom: 10px;">Numero de Telephone</label>
+                        <input type="number" id="num-tel" style="float: right;" autofocus>
+                        <br>
+                        <label id="l3" style="padding-bottom: 10px;">Date de Naissance</label>
+                        <input type="date" id="date-naiss" style="float: right;" autofocus>
+                        <br>
+                        <label id="l4" style="padding-bottom: 10px;">Adresse</label>
+                        <input type="text" id="adresse" style="float: right;" autofocus>
+                        <br>
+                        <label id="l5" style="padding-bottom: 10px;">Email</label>
+                        <input type="email" id="mail" style="float: right;" autofocus>
+                        <br>
+                        <label id="l6" style="padding-bottom: 10px;">Informations Médicales</label>
+                        <input type="text" id="info-med" style="float: right;" autofocus>
+                        <br>
+                        <div class="text-center">
+                            <button type="button" id="btn-check" class="btn btn-secondary">Vérifier</button>
+                            <output id=output1 style="padding-bottom: 10px;"></output>
+                        </div>
+                        <br> 
+                    </fieldset>
+                </fieldset >
+                <fieldset>
+                    <fieldset >
+                        <label id="l10" style="padding-bottom: 10px;">Numero de Telephone</label>
+                        <input type="number" id="num-tel1" style="float: right;"autofocus>
+                        <br>
+                        <div class="text-center">
+                            <button type="button" id="btn-check1" class="btn btn-secondary">Vérifier</button>
+                            <br>
+                            <output id=output2></output> 
+                        </div>
+                        <br>
+                    </fieldset>
                 </fieldset>
-            </fieldset >
-            <form id="f2s">
-                <fieldset >
-                    <label id="l10">Numero de Telephone</label>
-                    <input type="number" id="num-tel1" autofocus>
+                <h1>Informations du RDV</h1>
+                <fieldset>
+                    <label style="padding-bottom: 10px;">Date et Heure du Rendez-vous</label>
+                    <input type="datetime-local" id="date-heure-rdv" name="date-heure-rdv" style="float: right;" autofocus>
                     <br>
-                    <button type="button" id="btn-check1">Vérifier</button>
+                    <label style="padding-bottom: 10px;">Objet</label>
+                    <input type="text" id="obj" style="float: right;"autofocus>
                     <br>
-                    <output id=output2></output> 
                 </fieldset>
-            </fieldset>
-            <h1>Les Informations du Rendez-vous</h1>
-            <fieldset>
-                <label>Date et Heure du Rendez-vous</label>
-                <input type="datetime-local" id="date-heure-rdv" name="date-heure-rdv" autofocus>
-                <br>
-                <label>Objet</label>
-                <input type="text" id="obj" autofocus>
-                <br>
-            </fieldset>
-            <button type="submit" id="btn-submit">Ajouter Rendez-vous</button>
+            </div>
+            <div class="text-center">
+                <button type="submit" id="btn-submit" class="btn btn-info">Ajouter Rendez-vous</button>
+            </div>
         </form>
         <script src="./addRDV.js"></script>
   </body>
